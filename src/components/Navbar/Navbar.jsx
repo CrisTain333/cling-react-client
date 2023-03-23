@@ -5,7 +5,7 @@ const Navbar = () => {
     <div>
       <div className="navbar bg-base-100 shadow-md">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">Cling-Task</a>
+          <a className="btn btn-ghost normal-case text-xl">Cling-React-Task</a>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">

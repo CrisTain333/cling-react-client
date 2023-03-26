@@ -1,6 +1,6 @@
 import React from "react";
 import "../index.css"
-const DeletePopup = ({ props}) => {
+const DeletePopup = ( props) => {
   return (
     <div className="popup-container">
       <div className="popup">

@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
+<<<<<<< Updated upstream
 @tailwind utilities;
+=======
+@tailwind utilities;
+
+/* Deletepopup style begin */
+.popup-container {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+  }
+  
+  .popup-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .popup-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .popup-buttons button:hover {
+    background-color: #0d8bf2;
+  }
+  /* Deletepopup style end*/
+>>>>>>> Stashed changes

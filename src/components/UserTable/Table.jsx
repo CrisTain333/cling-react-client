@@ -1,6 +1,35 @@
 import React from "react";
+import swal from "sweetalert";
 
-const Table = ({ data }) => {
+const Table = ({ data, refetch }) => {
+  const handleDeleteUser = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this User",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(
+          `https://cling-task-server.onrender.com/api/v1/user/delete-user/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            swal("user has been deleted!", {
+              icon: "success",
+            });
+            refetch();
+          });
+      } else {
+        swal("User is safe!");
+      }
+    });
+  };
+
   return (
     <div>
       <div className="overflow-x-auto w-full">
@@ -26,7 +55,10 @@ const Table = ({ data }) => {
                       <button className="btn bg-sky-400 text-white border-none">
                         Update
                       </button>
-                      <button className="btn bg-red-500 text-white border-none">
+                      <button
+                        className="btn bg-red-500 text-white border-none"
+                        onClick={() => handleDeleteUser(e._id)}
+                      >
                         Delete
                       </button>
                     </div>

@@ -49,7 +49,7 @@ const User = () => {
         </label>
       </div>
       <dir className="my-5">
-        <Table data={data} />
+        <Table refetch={refetch} data={data} />
       </dir>
 
       {showAddUserModel && (

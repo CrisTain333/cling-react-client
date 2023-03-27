@@ -1,9 +1,10 @@
 import React from "react";
+import Table from "../components/UserTable/Table";
 
 const user = () => {
   return (
     <div>
-      <p>User Page </p>
+      <Table/>
     </div>
   );
 };

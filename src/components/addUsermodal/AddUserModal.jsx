@@ -13,7 +13,7 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
     const mobile = form.email.value;
     const password = form.password.value;
     try {
-      fetch("http://localhost:8000/api/v1/user/add-user", {
+      fetch("https://cling-task-server.onrender.com/api/v1/user/add-user", {
         method: "POST",
         headers: {
           "content-type": "application/json",

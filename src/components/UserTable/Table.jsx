@@ -36,11 +36,12 @@ const Table = ({ data, refetch }) => {
         <table className="table w-full">
           {/* head */}
           <thead>
-            <tr className="text-center">
+            <tr>
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Action</th>
+              <th>update</th>
+              <th>delete</th>
             </tr>
           </thead>
           <tbody>
@@ -50,18 +51,19 @@ const Table = ({ data, refetch }) => {
                   <td>{e.name}</td>
                   <td>{e.email}</td>
                   <td>{e.mobile}</td>
+                  <td>
+                    {" "}
+                    <button className="btn bg-sky-400 text-white border-none">
+                      Update
+                    </button>
+                  </td>
                   <th>
-                    <div className="space-x-3">
-                      <button className="btn bg-sky-400 text-white border-none">
-                        Update
-                      </button>
-                      <button
-                        className="btn bg-red-500 text-white border-none"
-                        onClick={() => handleDeleteUser(e._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    <button
+                      className="btn bg-red-500 text-white border-none"
+                      onClick={() => handleDeleteUser(e._id)}
+                    >
+                      Delete
+                    </button>
                   </th>
                 </tr>
               );

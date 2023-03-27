@@ -28,7 +28,7 @@ const User = () => {
   }
   return (
     <div>
-      <div className="Add_User_Button flex justify-end my-5">
+      <div className="Add_User_Button flex justify-end my-10">
         <label
           onClick={() => setShowUserModel(true)}
           htmlFor="my-modal"
@@ -48,9 +48,9 @@ const User = () => {
           Add User
         </label>
       </div>
-      <dir className="my-5">
+      <div className="my-5">
         <Table refetch={refetch} data={data} />
-      </dir>
+      </div>
 
       {showAddUserModel && (
         <AddUserModal setShowUserModel={setShowUserModel} refetch={refetch} />

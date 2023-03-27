@@ -1,24 +1,42 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 
-const AddUserModal = ({ setShowUserModel }) => {
-  const [selectedImage, setSelectedImage] = useState();
-
-  const imageChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
-    }
-  };
+const AddUserModal = ({ setShowUserModel, refetch }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddUser = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const mobile = form.email.value;
     const password = form.password.value;
-    const photo = selectedImage;
-    // name, email, mobile, photo, password;
-    console.log(name, email, mobile, password, photo);
+    try {
+      fetch("http://localhost:8000/api/v1/user/add-user", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ name, email, mobile, password }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status !== 200) {
+            toast.error(data.message);
+            setIsLoading(false);
+          } else {
+            toast.success(data.message);
+            setIsLoading(false);
+            setShowUserModel(false);
+            form.reset();
+            refetch();
+          }
+        });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error Adding User");
+    }
   };
 
   return (
@@ -68,6 +86,7 @@ const AddUserModal = ({ setShowUserModel }) => {
                     id="name"
                     name="name"
                     type="text"
+                    required
                     placeholder="Enter Full Name"
                   />
                 </div>
@@ -86,6 +105,7 @@ const AddUserModal = ({ setShowUserModel }) => {
                     type="email"
                     name="email"
                     placeholder="Enter Email"
+                    required
                   />
                 </div>
               </div>
@@ -103,6 +123,7 @@ const AddUserModal = ({ setShowUserModel }) => {
                     type="number"
                     name="phone"
                     placeholder="Enter Phone Number"
+                    required
                   />
                 </div>
               </div>
@@ -121,30 +142,32 @@ const AddUserModal = ({ setShowUserModel }) => {
                     type="password"
                     name="password"
                     placeholder="Password"
+                    required
                   />
                 </div>
-              </div>
-              <label for="photo-upload" class="block font-medium text-gray-700">
-                Profile Picture
-              </label>
-              <div class="mt-1  px-6 pt-5 pb-6 border-gray-300  rounded-md">
-                <label class="block">
-                  <span class="sr-only">Choose File</span>
-                  <input
-                    onChange={imageChange}
-                    type="file"
-                    name="profilePicture"
-                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
-                  />
-                </label>
               </div>
 
               <div class="mt-3 text-center">
                 <button
+                  disabled={isLoading}
                   type="submit"
-                  class="mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  class={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
+                    isLoading && "cursor-not-allowed"
+                  }`}
                 >
-                  Submit
+                  {isLoading ? (
+                    <>
+                      <div className="flex items-center justify-center">
+                        <div className="inline-block h-7 w-7 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
+                          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                            Loading...
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>

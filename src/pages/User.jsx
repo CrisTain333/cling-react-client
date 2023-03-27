@@ -1,9 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import AddUserModal from "../components/addUsermodal/AddUserModal";
 import Table from "../components/UserTable/Table";
 
 const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
+
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["Data"],
+    queryFn: async () => {
+      const res = await fetch(
+        "https://cling-task-server.onrender.com/api/v1/user/user-listing"
+      );
+      const data = res.json();
+      return data;
+    },
+  });
+  console.log(data);
+
+  if (isLoading) {
+    return <p>Loading ......</p>;
+  }
   return (
     <div>
       <div className="Add_User_Button flex justify-end my-5">
@@ -27,10 +49,13 @@ const User = () => {
         </label>
       </div>
       <dir className="my-5">
-        <Table />
+        <Table data={data} />
       </dir>
 
-      {showAddUserModel && <AddUserModal setShowUserModel={setShowUserModel} />}
+      {showAddUserModel && (
+        <AddUserModal setShowUserModel={setShowUserModel} refetch={refetch} />
+      )}
+      <Toaster />
     </div>
   );
 };

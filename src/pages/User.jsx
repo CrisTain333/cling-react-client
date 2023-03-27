@@ -1,9 +1,39 @@
 import React from "react";
-<<<<<<< Updated upstream
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const User = () => {
+
+  const [userList, setUserList] = useState([
+    {
+      Name: 'Tapas',
+      Email: 'tapas@gmail.com'
+    },
+    {
+      Name: 'Sasuke',
+      Email: 'saske@gmail.com'
+    },
+    {
+      Name: 'Kakashi',
+      Email: 'kakashi@gmail.com'
+    },
+  ])
+
+  const handleDelete = (user) => {
+    setUserList(
+      userList.filter((item) => item != user)
+    )
+  }
+
+  const handleAdd = () => {
+    setUserList([...userList, {Name: "DemoUser", Email: "Demo@gmail.com"}])
+  }
+
   return (
     <div>
+
+
       <p>User Page</p>
 =======
 import { useState } from "react";
@@ -87,14 +117,7 @@ const User = () => {
       <button 
         onClick={() => handleAdd()}
         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded ml-72 mt-16">Add User</button>
-        {showDeletePopup && (
-        <DeletePopup
-        user={userToDelete}
-          onCancel={handleCancelDelete}
-          onDelete={handleConfirmDelete}
-        />
-      )}
->>>>>>> Stashed changes
+
     </div>
   );
 };

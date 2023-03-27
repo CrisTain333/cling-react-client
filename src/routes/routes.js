@@ -1,3 +1,4 @@
+import UserModal from "../components/Navbar/addUsermodal/AddUserModal";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import User from "../pages/User";
@@ -29,4 +30,9 @@ export const router = createBrowserRouter([
     path: "/sign-up",
     element: <SignUp />,
   },
+  {
+    path: "/User-modal",
+    element: <UserModal />,
+  },
+
 ]);

@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AddUserModal = ({ setShowUserModel }) => {
+  const [selectedImage, setSelectedImage] = useState();
+
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const mobile = form.email.value;
+    const password = form.password.value;
+    const photo = selectedImage;
+    // name, email, mobile, photo, password;
+    console.log(name, email, mobile, password, photo);
+  };
+
   return (
     <div>
       <div className="flex justify-end right-0 mt-5 mb-4 mr-12">
@@ -34,37 +54,21 @@ const AddUserModal = ({ setShowUserModel }) => {
               Add User
             </h2>
 
-            <form className="w-full max-w-lg">
+            <form className="w-full max-w-lg" onSubmit={handleAddUser}>
               <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full px-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-first-name"
+                    htmlFor="grid-email"
                   >
-                    First Name
+                    Name
                   </label>
                   <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name"
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="name"
+                    name="name"
                     type="text"
-                    placeholder="First Name"
-                  />
-                  <p className="text-500 text-xs italic">
-                    Please fill out this field.
-                  </p>
-                </div>
-                <div className="w-full md:w-1/2 px-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-last-name"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-last-name"
-                    type="text"
-                    placeholder="Last Name"
+                    placeholder="Enter Full Name"
                   />
                 </div>
               </div>
@@ -80,6 +84,7 @@ const AddUserModal = ({ setShowUserModel }) => {
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-email"
                     type="email"
+                    name="email"
                     placeholder="Enter Email"
                   />
                 </div>
@@ -95,7 +100,8 @@ const AddUserModal = ({ setShowUserModel }) => {
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-mobile"
-                    type="tel"
+                    type="number"
+                    name="phone"
                     placeholder="Enter Phone Number"
                   />
                 </div>
@@ -113,6 +119,7 @@ const AddUserModal = ({ setShowUserModel }) => {
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-password"
                     type="password"
+                    name="password"
                     placeholder="Password"
                   />
                 </div>
@@ -124,7 +131,7 @@ const AddUserModal = ({ setShowUserModel }) => {
                 <label class="block">
                   <span class="sr-only">Choose File</span>
                   <input
-                    // onChange={imageChange}
+                    onChange={imageChange}
                     type="file"
                     name="profilePicture"
                     class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "

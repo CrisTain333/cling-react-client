@@ -6,12 +6,8 @@ const UpdateUserModal = ({ setShowUpdateUserModel }) => {
 
     const handleUpdateUser = (e) => {
         e.preventDefault();
+        console.log('user updated')
         setIsLoading(true);
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const mobile = form.mobile.value;
-        const password = form.password.value;
     }
 
   return (
@@ -63,7 +59,6 @@ const UpdateUserModal = ({ setShowUpdateUserModel }) => {
                     type="text"
                     required
                     placeholder="Enter Full Name"
-                    value={'sasuke'}
                 />
                 </div>
             </div>
@@ -97,7 +92,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel }) => {
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-mobile"
                     type="number"
-                    name="phone"
+                    name="mobile"
                     placeholder="Enter Phone Number"
                     required
                 />

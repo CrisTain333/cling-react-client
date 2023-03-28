@@ -10,7 +10,7 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
-    const mobile = form.email.value;
+    const mobile = form.mobile.value;
     const password = form.password.value;
     try {
       fetch("https://cling-task-server.onrender.com/api/v1/user/add-user", {
@@ -121,7 +121,7 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-mobile"
                     type="number"
-                    name="phone"
+                    name="mobile"
                     placeholder="Enter Phone Number"
                     required
                   />

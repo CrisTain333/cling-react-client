@@ -1,7 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import swal from "sweetalert";
+import UpdateUserModal from "../UpdateUserModal/UpdateUserModal";
 
 const Table = ({ data, refetch }) => {
+
+  // function for updating the user details
+  
+  const [showUpdateUserModal, setShowUpdateUserModal] = useState(false)
+
+  const handleUpdate = () => {
+    console.log('update button clicked')
+    setShowUpdateUserModal(true)
+  }
+
+
   const handleDeleteUser = (id) => {
     swal({
       title: "Are you sure?",
@@ -53,7 +65,9 @@ const Table = ({ data, refetch }) => {
                   <td>{e.mobile}</td>
                   <td>
                     {" "}
-                    <button className="btn bg-sky-400 text-white border-none">
+                    <button 
+                      className="btn bg-sky-400 text-white border-none"
+                      onClick={handleUpdate}>
                       Update
                     </button>
                   </td>
@@ -72,6 +86,9 @@ const Table = ({ data, refetch }) => {
           {/* foot */}
         </table>
       </div>
+      {showUpdateUserModal && (
+        <UpdateUserModal setShowUpdateUserModel={setShowUpdateUserModal}/>
+      )}
     </div>
   );
 };

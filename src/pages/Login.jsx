@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
+  const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,9 +27,11 @@ export default function Login() {
             toast.success(data?.message);
             localStorage.setItem("accessToken", data?.token);
             setLoading(false);
+            setIsAuthenticate(true);
           } else {
             toast.error(data?.message);
             setLoading(false);
+            setIsAuthenticate(false);
           }
         });
     } catch (error) {
@@ -37,6 +41,7 @@ export default function Login() {
     }
   };
 
+  if (isAuthenticate) return <Navigate to={"/"} />;
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <Toaster />

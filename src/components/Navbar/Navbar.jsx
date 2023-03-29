@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/login')
+  }
+
   return (
     <div>
       <div className="navbar bg-base-100 shadow-md p-2">
@@ -35,7 +43,9 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="navbar-end">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded rounded flex items-center cursor-pointer">
+          <button 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded rounded flex items-center cursor-pointer"
+            onClick={handleClick}>
             <span className="mr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +62,7 @@ export default function Navbar() {
                 />
               </svg>
             </span>
-            Logout
+            Login
           </button>
         </div>
       </div>

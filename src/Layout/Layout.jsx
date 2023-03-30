@@ -1,8 +1,16 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet,useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
+import Filter from "../components/UserTable/Filter";
 
 const Layout = () => {
+  let isUserPage=false;
+  let location = useLocation();
+  if(location.pathname==='/user'){
+    isUserPage=true
+  }
+
+
   return (
     <div>
       <Navbar />
@@ -26,6 +34,9 @@ const Layout = () => {
             <li className="bg-base-100 rounded text-lg font-medium">
               <Link to="/user">User</Link>
             </li>
+
+            {/* Filter tag will visible only when we are currently on user page  */}
+              <Filter isUserPage={isUserPage}/>
           </ul>
         </div>
       </div>

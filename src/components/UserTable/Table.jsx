@@ -1,54 +1,101 @@
-import React, { useContext } from 'react'
-import TableEntry from './TableEntry'
-import UserContext from './UserContext'
-import UserState from './UserState'
+import React, {useState} from "react";
+import swal from "sweetalert";
+import UpdateUserModal from "../UpdateUserModal/UpdateUserModal";
 
-function Table() {
+const Table = ({ data, refetch }) => {
 
-    const { userData } = useContext(UserContext)
-    console.log(userData)
-    return (
-        <div className="overflow-x-auto w-full">
-            <table className="table w-full">
-                {/* head */}
-                <thead>
-                    <tr>
-                        <th>
-                            <label>
-                                <input type="checkbox" className="checkbox" />
-                            </label>
-                        </th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Contact Number</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                {/* <tbody>
-                    <TableEntry/>
-                </tbody> */}
-                {userData.map((row) => {
-                    {return(
-                        <tbody>
-                           <TableEntry row={row} />
-                        </tbody> )
-            }
-                })}
+  // function for updating the user details
+  
+  const [showUpdateUserModal, setShowUpdateUserModal] = useState(false)
+  const [index, setIndex] = useState(0)
 
-                {/* foot */}
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Contact Number</th>
-                        <th></th>
-                    </tr>
-                </tfoot>
+  const handleDeleteUser = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this User",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(
+          `https://cling-task-server.onrender.com/api/v1/user/delete-user/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            swal("user has been deleted!", {
+              icon: "success",
+            });
+            refetch();
+          });
+      } else {
+        swal("User is safe!");
+      }
+    });
+  };
 
-            </table>
-        </div>
-    )
-}
+  return (
+    <div>
+      <div className="overflow-x-auto w-full">
+        <table className="table w-full">
+          {/* head */}
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>update</th>
+              <th>delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.data.map((e,i) => {
+              return (
+                <tr key={e._id}>
+                  <td>{e.name}</td>
+                  <td>{e.email}</td>
+                  <td>{e.mobile}</td>
+                  <td>
+                    {" "}
+                    {/* <button 
+                      className="btn bg-sky-400 text-white border-none"
+                      onClick={() => handleUpdateUser(e._id)}>
+                      Update
+                    </button> */}
+                    <label
+                      onClick={() => {
+                        setShowUpdateUserModal(true)
+                        setIndex(i)}}
+                      htmlFor="my-modal"
+                      className="btn bg-sky-400 text-white border-none"
+                      // value="Login"
+                    >
+                      Update
+                    </label>
+                  </td>
+                  <th>
+                    <button
+                      className="btn bg-red-500 text-white border-none"
+                      onClick={() => handleDeleteUser(e._id)}
+                    >
+                      Delete
+                    </button>
+                  </th>
+                </tr>
+              );
+            })}
+          </tbody>
+          {/* foot */}
+        </table>
+      {showUpdateUserModal && (
+        <UpdateUserModal setShowUpdateUserModel={setShowUpdateUserModal} index={index} data={data.data} refetch={refetch}/>
+      )}
+      </div>
+    </div>
+  );
+};
 
-export default Table
+export default Table;

@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
-import UserState from "./components/UserTable/UserState";
+import { AuthContext } from "./Context/AuthProvider";
 import { router } from "./routes/routes";
 const App = () => {
+  const { setUser, setIsAuthenticate, setLoading } = useContext(AuthContext);
+
+  useEffect(() => {
+    setLoading(true);
+    const getUser = () => {
+      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
+        headers: {
+          "content-type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data?.data);
+          setIsAuthenticate(true);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setUser("");
+          setIsAuthenticate(false);
+          setLoading(false);
+        });
+    };
+    getUser();
+  }, []);
+
   return (
     <div>
-      <UserState>
       <RouterProvider router={router}></RouterProvider>
-      </UserState>
     </div>
   );
 };

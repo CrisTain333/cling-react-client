@@ -1,32 +1,28 @@
 import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
 import User from "../pages/User";
+import Layout from "../Layout/Layout";
+import Statuses from "../pages/Statuses";
 
 const { createBrowserRouter } = require("react-router-dom");
-const { default: Layout } = require("../Layout/Layout");
-const { default: Home } = require("../pages/Home");
 
 export const router = createBrowserRouter([
   {
     path: "/",
+
     element: <Layout />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <User />,
       },
       {
-        path: "/user",
-        element: <User />,
+        path: "/statuses",
+        element: <Statuses />,
       },
     ],
   },
   {
     path: "/login",
     element: <Login></Login>,
-  },
-  {
-    path: "/sign-up",
-    element: <SignUp />,
   },
 ]);

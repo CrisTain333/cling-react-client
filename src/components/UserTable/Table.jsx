@@ -1,13 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import swal from "sweetalert";
 import UpdateUserModal from "../UpdateUserModal/UpdateUserModal";
 
 const Table = ({ data, refetch }) => {
-
   // function for updating the user details
-  
-  const [showUpdateUserModal, setShowUpdateUserModal] = useState(false)
-  const [index, setIndex] = useState(0)
+
+  const [showUpdateUserModal, setShowUpdateUserModal] = useState(false);
+  const [index, setIndex] = useState(0);
 
   const handleDeleteUser = (id) => {
     swal({
@@ -52,23 +51,18 @@ const Table = ({ data, refetch }) => {
             </tr>
           </thead>
           <tbody>
-            {data?.data.map((e,i) => {
+            {data?.data.map((e, i) => {
               return (
                 <tr key={e._id}>
                   <td>{e.name}</td>
                   <td>{e.email}</td>
                   <td>{e.mobile}</td>
                   <td>
-                    {" "}
-                    {/* <button 
-                      className="btn bg-sky-400 text-white border-none"
-                      onClick={() => handleUpdateUser(e._id)}>
-                      Update
-                    </button> */}
                     <label
                       onClick={() => {
-                        setShowUpdateUserModal(true)
-                        setIndex(i)}}
+                        setShowUpdateUserModal(true);
+                        setIndex(i);
+                      }}
                       htmlFor="my-modal"
                       className="btn bg-sky-400 text-white border-none"
                       // value="Login"
@@ -90,9 +84,14 @@ const Table = ({ data, refetch }) => {
           </tbody>
           {/* foot */}
         </table>
-      {showUpdateUserModal && (
-        <UpdateUserModal setShowUpdateUserModel={setShowUpdateUserModal} index={index} data={data.data} refetch={refetch}/>
-      )}
+        {showUpdateUserModal && (
+          <UpdateUserModal
+            setShowUpdateUserModel={setShowUpdateUserModal}
+            index={index}
+            data={data.data}
+            refetch={refetch}
+          />
+        )}
       </div>
     </div>
   );

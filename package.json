@@ -13,12 +13,8 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-router-dom": "^6.9.0",
-<<<<<<< HEAD
     "react-scripts": "^5.0.1",
-=======
-    "react-scripts": "5.0.1",
     "sweetalert": "^2.1.2",
->>>>>>> e694563634adb151e6beb91d5813f821da128418
     "web-vitals": "^2.1.4"
   },
   "scripts": {

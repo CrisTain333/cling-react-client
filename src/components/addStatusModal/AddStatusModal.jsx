@@ -1,16 +1,48 @@
 import React, { useState } from "react";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
-const AddStatusModal = ({ setShowStatusModal }) => {
+const AddStatusModal = ({ setShowStatusModal, refetch }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAddStatus = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    // Get form Data
     const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
     const desc = form.desc.value;
-    console.log(desc)
+    const data = {name, email, description: desc, date: new Date()}
+
+    // Making POST request
+    try {
+      fetch("https://cling-task-server.onrender.com/api/v1/status/add-status", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status !== 200) {
+            toast.error(data.message);
+            setIsLoading(false);
+          } else {
+            toast.success(data.message);
+            setIsLoading(false);
+            setShowStatusModal(false);
+            form.reset();
+            refetch()
+          }
+        });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error Adding User");
+    }
   };
+
+  // https://cling-task-server.onrender.com/api/v1/status/add-status ||POST
 
   return (
     <div>
@@ -42,11 +74,43 @@ const AddStatusModal = ({ setShowStatusModal }) => {
               </div>
             </div>
             <h2 className="font-bold bg-clip-text font-sans text-2xl text-center mb-8 ">
-              Add User
+              Add Status
             </h2>
 
             <form className="w-full max-w-lg" onSubmit={handleAddStatus}>
               <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-email"
+                  >
+                    Name
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div className="w-full px-3">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="Enter your email"
+                  />
+                </div>
                 <div className="w-full px-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -56,7 +120,7 @@ const AddStatusModal = ({ setShowStatusModal }) => {
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="name"
+                    id="desc"
                     name="desc"
                     type="text"
                     required

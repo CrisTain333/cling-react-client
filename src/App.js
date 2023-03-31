@@ -8,7 +8,7 @@ const App = () => {
   useEffect(() => {
     setLoading(true);
     const getUser = () => {
-      fetch("http://localhost:8000/api/v1/user/me", {
+      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("accessToken"),

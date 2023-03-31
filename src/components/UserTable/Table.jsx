@@ -7,12 +7,7 @@ const Table = ({ data, refetch }) => {
   // function for updating the user details
   
   const [showUpdateUserModal, setShowUpdateUserModal] = useState(false)
-
-  const handleUpdate = () => {
-    console.log('update button clicked')
-    setShowUpdateUserModal(true)
-  }
-
+  const [index, setIndex] = useState(0)
 
   const handleDeleteUser = (id) => {
     swal({
@@ -57,7 +52,7 @@ const Table = ({ data, refetch }) => {
             </tr>
           </thead>
           <tbody>
-            {data?.data.map((e) => {
+            {data?.data.map((e,i) => {
               return (
                 <tr key={e._id}>
                   <td>{e.name}</td>
@@ -65,11 +60,21 @@ const Table = ({ data, refetch }) => {
                   <td>{e.mobile}</td>
                   <td>
                     {" "}
-                    <button 
+                    {/* <button 
                       className="btn bg-sky-400 text-white border-none"
-                      onClick={handleUpdate}>
+                      onClick={() => handleUpdateUser(e._id)}>
                       Update
-                    </button>
+                    </button> */}
+                    <label
+                      onClick={() => {
+                        setShowUpdateUserModal(true)
+                        setIndex(i)}}
+                      htmlFor="my-modal"
+                      className="btn bg-sky-400 text-white border-none"
+                      // value="Login"
+                    >
+                      Update
+                    </label>
                   </td>
                   <th>
                     <button
@@ -85,10 +90,10 @@ const Table = ({ data, refetch }) => {
           </tbody>
           {/* foot */}
         </table>
-      </div>
       {showUpdateUserModal && (
-        <UpdateUserModal setShowUpdateUserModel={setShowUpdateUserModal}/>
+        <UpdateUserModal setShowUpdateUserModel={setShowUpdateUserModal} index={index} data={data.data} refetch={refetch}/>
       )}
+      </div>
     </div>
   );
 };

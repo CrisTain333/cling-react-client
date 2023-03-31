@@ -1,9 +1,23 @@
+<<<<<<< HEAD
+import React from "react";
+import { Link, Outlet,useLocation } from "react-router-dom";
+import Navbar from "../components/Navbar/Navbar";
+import Filter from "../components/UserTable/Filter";
+=======
 import React, { useContext } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import { AuthContext } from "../Context/AuthProvider";
+>>>>>>> e694563634adb151e6beb91d5813f821da128418
 
 const Layout = () => {
+  let isUserPage=false;
+  let location = useLocation();
+  if(location.pathname==='/user'){
+    isUserPage=true
+  }
+
+
   return (
     <div>
       <Navbar />
@@ -57,6 +71,9 @@ const Layout = () => {
                 Status
               </Link>
             </li>
+
+            {/* Filter tag will visible only when we are currently on user page  */}
+              <Filter isUserPage={isUserPage}/>
           </ul>
         </div>
       </div>

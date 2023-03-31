@@ -7,10 +7,31 @@ export default function Navbar() {
 
   return (
     <div>
+<<<<<<< HEAD
+      <div className="navbar bg-base-100 shadow-md">
+        <div className="flex-1">
+          <a className="btn btn-ghost normal-case text-xl" href="/">Cling-React-Task</a>
+        </div>
+        <div className="flex-none">
+        <div className="form-control">
+      <input type="text" placeholder="Search" className="input input-bordered mx-3" />
+    </div>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg"
+                  alt="userImage"
+                />
+              </div>
+            </label>
+            <ul
+=======
       <div className="navbar bg-base-100 shadow-md p-2">
         <div className="navbar-start ">
           <div className="dropdown">
             <label
+>>>>>>> e694563634adb151e6beb91d5813f821da128418
               tabIndex={0}
               className="btn btn-ghost btn-circle "
               htmlFor="my-drawer-2"

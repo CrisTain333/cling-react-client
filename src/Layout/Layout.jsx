@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, Navigate, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import { AuthContext } from "../Context/AuthProvider";
 
@@ -66,14 +66,11 @@ const Layout = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 w-52 bg-base-200 text-base-content">
             {/* <!-- Sidebar content here --> */}
-
-            {Option?.map((e) => {
+            {Option.map((e, i) => {
               return (
                 <li
-                  className={` rounded text-lg bg-base-100 font-medium my-2 ${
-                    selected === e.name && "bg-gray-300"
-                  }`}
-                  onClick={() => setSelected(e.name)}
+                  className="bg-base-100 rounded text-lg font-medium my-2"
+                  key={i}
                 >
                   <Link to={`${e.path}`}>
                     <span>{e.icon}</span>
@@ -82,6 +79,9 @@ const Layout = () => {
                 </li>
               );
             })}
+
+            {/* Filter tag will visible only when we are currently on user page  */}
+            {/* <Filter isUserPage={isUserPage} /> */}
           </ul>
         </div>
       </div>

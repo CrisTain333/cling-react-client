@@ -1,9 +1,55 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import { AuthContext } from "../Context/AuthProvider";
 
 const Layout = () => {
+  const [selected, setSelected] = useState("User");
+  const Option = [
+    {
+      name: "User",
+      path: "/",
+      icon: (
+        <>
+          {" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </>
+      ),
+    },
+    {
+      name: "Status",
+      path: "/status",
+      icon: (
+        <>
+          {" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </>
+      ),
+    },
+  ];
+
   return (
     <div>
       <Navbar />
@@ -20,43 +66,22 @@ const Layout = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 w-52 bg-base-200 text-base-content">
             {/* <!-- Sidebar content here --> */}
-            <li className="bg-base-100 rounded text-lg font-medium">
-              <Link to="/">
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-                User
-              </Link>
-              
-              <Link to="/statuses">
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-                Status
-              </Link>
-            </li>
+
+            {Option?.map((e) => {
+              return (
+                <li
+                  className={` rounded text-lg bg-base-100 font-medium my-2 ${
+                    selected === e.name && "bg-gray-300"
+                  }`}
+                  onClick={() => setSelected(e.name)}
+                >
+                  <Link to={`${e.path}`}>
+                    <span>{e.icon}</span>
+                    {e.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

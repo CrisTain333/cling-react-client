@@ -17,6 +17,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
         },
         body: JSON.stringify({ name, email, mobile, password }),
       })

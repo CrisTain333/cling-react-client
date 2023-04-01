@@ -3,6 +3,7 @@ import swal from "sweetalert";
 import UpdateUserModal from "../UpdateUserModal/UpdateUserModal";
 
 const Table = ({ data, refetch }) => {
+  // function for updating the user details
 
   const [showUpdateUserModal, setShowUpdateUserModal] = useState(false);
   const [index, setIndex] = useState(0);

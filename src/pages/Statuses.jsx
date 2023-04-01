@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import AddStatusModal from "../components/addStatusModal/AddStatusModal";
 // import Table from "../components/UserTable/Table";
-import StatusList from "../components/StatusList/StatusList";
 
 export default function Statuses() {
   const [showStatusModal, setShowStatusModal] = useState(false);
@@ -28,12 +27,6 @@ export default function Statuses() {
   if (isLoading) {
     return <p>Loading...</p>;
   }
-
-  //function to update status
-
-
-  //function to delete status
-
 
   return (
     <div>
@@ -60,28 +53,12 @@ export default function Statuses() {
       {/* <div className="my-5">
         <Table refetch={refetch} data={data} />
       </div> */}
-      <h1 class="text-3xl font-bold text-center mb-8">Status List</h1>
-
-      {data?.data.map((e) => {
-          return (
-            <div className="my-8">
-              <StatusList e={e}/>
-            </div>
-          );
-      })}
       {showStatusModal && (
         <AddStatusModal
           setShowStatusModal={setShowStatusModal}
           refetch={refetch}
         />
       )}
-      {/* Status pagination */}
-      <div className="btn-group flex justify-center m-8 text-base">
-        <button className="btn btn-active">1</button>
-        <button className="btn">2</button>
-        <button className="btn">3</button>
-        <button className="btn">4</button>
-      </div>
       <Toaster />
     </div>
   );

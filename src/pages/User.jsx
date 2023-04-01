@@ -9,11 +9,16 @@ const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
+  // const PAGE_SIZE = 5;
 
   const getUsers = async (key, searchTerm = "") => {
     const { data } = await axios.get(
-      `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}`
+      `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`
     );
+    setTotalPages(data?.totalPages);
     return data;
   };
 
@@ -21,7 +26,7 @@ const User = () => {
     data = [],
     isLoading,
     refetch,
-  } = useQuery(["users", search], getUsers, {
+  } = useQuery(["users", search, currentPage, sort], getUsers, {
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   });
@@ -33,6 +38,15 @@ const User = () => {
   function handleSearch(e) {
     e.preventDefault();
     setSearch(e.target.value);
+  }
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
   }
 
   if (isLoading) {
@@ -86,6 +100,19 @@ const User = () => {
       </div>
       <div className="my-5">
         <Table refetch={refetch} data={data} />
+      </div>
+
+      <div className="flex justify-center space-x-1 dark:text-gray-100">
+        {pageNumbers.map((pageNumber) => (
+          <button
+            onClick={() => handlePageChange(pageNumber)}
+            type="button"
+            title="Page 1"
+            className="inline-flex items-center justify-center w-8 h-8 text-sm font-semibold border rounded shadow-md dark:bg-gray-900 dark:text-violet-400 dark:border-violet-400"
+          >
+            {pageNumber}
+          </button>
+        ))}
       </div>
 
       {showAddUserModel && (

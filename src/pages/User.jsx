@@ -3,30 +3,54 @@ import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import AddUserModal from "../components/addUsermodal/AddUserModal";
 import Table from "../components/UserTable/Table";
+import axios from "axios";
 
 const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
+  // const {
+  //   data = [],
+  //   isLoading,
+  //   refetch,
+  // } = useQuery({
+  //   queryKey: ["Data", sort, search],
+  //   queryFn: async () => {
+  //     const res = await fetch(
+  //       `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}`
+  //     );
+  //     const data = res.json();
+  //     return data;
+  //   },
+  //   {
+
+  //   refetchOnWindowFocus: false,
+  //   keepPreviousData: true,
+
+  // });
+
+  const getUsers = async (key, searchTerm = "") => {
+    const { data } = await axios.get(
+      `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}`
+    );
+    return data;
+  };
+
   const {
     data = [],
     isLoading,
     refetch,
-  } = useQuery({
-    queryKey: ["Data", sort, search],
-    queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}`
-      );
-      const data = res.json();
-      return data;
-    },
+  } = useQuery(["users", search], getUsers, {
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
+  console.log(data);
 
   function handleSort(e) {
     setSort(e.target.value);
   }
   function handleSearch(e) {
+    e.preventDefault();
     setSearch(e.target.value);
   }
 
@@ -35,6 +59,14 @@ const User = () => {
   }
   return (
     <div>
+      <div className="my-5">
+        <input
+          type="text"
+          placeholder="Search users with email , name "
+          className="p-2 border rounded-md w-full text-center"
+          onChange={handleSearch}
+        />
+      </div>
       <div className="flex flex-row justify-between  my-10">
         {/* Sort By Date */}
         <div className="">
@@ -43,25 +75,7 @@ const User = () => {
             onChange={handleSort}
             className="p-3 pr-2 rounded-md border "
           >
-            <option value="">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-                  />
-                </svg>
-              </span>{" "}
-              Sort by date
-            </option>
+            <option value="">Sort by date</option>
             <option value="asc">Oldest first</option>
             <option value="desc">Newest first</option>
           </select>

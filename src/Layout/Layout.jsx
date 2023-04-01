@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { AuthContext } from "../Context/AuthProvider";
 
 const Layout = () => {
-  const [selected, setSelected] = useState("User");
+  // const [selected, setSelected] = useState("User");
   const Option = [
     {
       name: "User",

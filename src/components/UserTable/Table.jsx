@@ -51,6 +51,7 @@ const Table = ({ data, refetch }) => {
             </tr>
           </thead>
           <tbody>
+            {data?.data.length < 0 && <p>No user</p>}
             {data?.data.map((e, i) => {
               return (
                 <tr key={e._id}>

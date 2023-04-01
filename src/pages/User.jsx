@@ -9,25 +9,6 @@ const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
-  // const {
-  //   data = [],
-  //   isLoading,
-  //   refetch,
-  // } = useQuery({
-  //   queryKey: ["Data", sort, search],
-  //   queryFn: async () => {
-  //     const res = await fetch(
-  //       `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}`
-  //     );
-  //     const data = res.json();
-  //     return data;
-  //   },
-  //   {
-
-  //   refetchOnWindowFocus: false,
-  //   keepPreviousData: true,
-
-  // });
 
   const getUsers = async (key, searchTerm = "") => {
     const { data } = await axios.get(
@@ -63,7 +44,7 @@ const User = () => {
         <input
           type="text"
           placeholder="Search users with email , name "
-          className="p-2 border rounded-md w-full text-center"
+          className="p-3 border rounded-md w-full text-center"
           onChange={handleSearch}
         />
       </div>

@@ -3,11 +3,11 @@ import React from 'react'
 const StatusList = ({ e }) => {
 
     const handleUpdateStatus = () => {
-        console.log('updated Status')
+        console.log('Updated Status')
     }
 
     const handleDeleteStatus = () => {
-        console.log('deleted status')
+        console.log('Deleted status')
     }
 
   return (

@@ -28,13 +28,24 @@ const User = () => {
   }
   return (
     <div>
+
+      <div className="flex flex-row justify-between">
+        <button className="btn btn-outline flex-initial w-64 my-12 ">Sort By Date</button>
       <div className="Add_User_Button flex justify-end my-10">
+
         <label
           onClick={() => setShowUserModel(true)}
           htmlFor="my-modal"
           className="bg-gradient-to-r from-sky-400  to-purple-500 text-white uppercase text-sm font-semibold px-4 py-2 rounded flex items-center cursor-pointer"
-          // value="Login"
+        // value="Login"
         >
+
+          {/* Search button */}
+          <div className="form-control mr-8">
+            <input type="text" placeholder="Search" className="input input-bordered" />
+          </div>
+
+
           <span className="mr-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +58,7 @@ const User = () => {
           </span>
           Add User
         </label>
+      </div>
       </div>
       <div className="my-5">
         <Table refetch={refetch} data={data} />

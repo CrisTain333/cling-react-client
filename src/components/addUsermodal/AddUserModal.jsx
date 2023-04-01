@@ -66,8 +66,10 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
                     />
                   </svg>
                 </button>
+                
               </div>
             </div>
+
             <h2 className="font-bold bg-clip-text font-sans text-2xl text-center mb-8 ">
               Add User
             </h2>
@@ -151,9 +153,8 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
                 <button
                   disabled={isLoading}
                   type="submit"
-                  class={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
-                    isLoading && "cursor-not-allowed"
-                  }`}
+                  class={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${isLoading && "cursor-not-allowed"
+                    }`}
                 >
                   {isLoading ? (
                     <>

@@ -99,10 +99,13 @@ const User = () => {
         </div>
       </div>
       <div className="my-5">
+        <p className="my-2 text-base font-mono font-semibold ml-2">
+          Page : {currentPage}
+        </p>
         <Table refetch={refetch} data={data} />
       </div>
 
-      <div className="flex justify-center space-x-1 dark:text-gray-100">
+      <div className="flex justify-center space-x-1 dark:text-gray-100 my-10">
         {pageNumbers.map((pageNumber) => (
           <button
             onClick={() => handlePageChange(pageNumber)}

@@ -1,10 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { AuthContext } from "../../Context/AuthProvider";
 
-const AddStatusModal = ({ setShowStatusModal, refetch }) => {
+const AddStatusModal = ({ setShowStatusModal, refetch, user }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useContext(AuthContext);
   console.log(user);
 
   const handleAddStatus = (e) => {
@@ -12,8 +10,8 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
     setIsLoading(true);
     // Get form Data
     const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
+    const name = user?.name;
+    const email = user?.email;
     const desc = form.desc.value;
     const data = { name, email, description: desc, date: new Date() };
 
@@ -82,7 +80,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
 
             <form className="w-full max-w-lg" onSubmit={handleAddStatus}>
               <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
+                {/* <div className="w-full px-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-email"
@@ -116,7 +114,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
                     defaultValue={user?.email}
                     placeholder="Enter your email"
                   />
-                </div>
+                </div> */}
                 <div className="w-full px-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

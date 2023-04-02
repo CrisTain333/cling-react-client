@@ -1,13 +1,13 @@
 import React from "react";
 
 const StatusList = ({ e }) => {
-  const handleUpdateStatus = () => {
-    console.log("Updated Status");
-  };
+  // const handleUpdateStatus = () => {
+  //   console.log("Updated Status");
+  // };
 
-  const handleDeleteStatus = () => {
-    console.log("Deleted status");
-  };
+  // const handleDeleteStatus = () => {
+  //   console.log("Deleted status");
+  // };
 
   return (
     <>

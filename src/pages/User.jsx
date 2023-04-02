@@ -14,7 +14,7 @@ const User = () => {
 
   const getUsers = async () => {
     const { data } = await axios.get(
-      `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`
+      `https://cling-task-server.onrender.com/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`
     );
     setTotalPages(data?.totalPages);
     return data;

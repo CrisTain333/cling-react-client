@@ -17,6 +17,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
         },
         body: JSON.stringify({ name, email, mobile, password }),
       })
@@ -41,7 +42,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
 
   return (
     <div>
-      <div className="flex justify-end right-0 mt-5 mb-4 mr-12">
+      <div className="flex justify-end right-0 mt-5 mb-4 mr-12 ">
         <input type="checkbox" id="my-modal" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box">
@@ -146,7 +147,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
                     name="password"
                     placeholder="Password"
                     required
-                    defaultValue={''}
+                    defaultValue={""}
                   />
                 </div>
               </div>
@@ -185,4 +186,3 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
 };
 
 export default UpdateUserModal;
-

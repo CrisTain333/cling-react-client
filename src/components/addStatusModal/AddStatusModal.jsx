@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const AddStatusModal = ({ setShowStatusModal, refetch }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   const handleAddStatus = (e) => {
     e.preventDefault();
@@ -12,7 +15,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
     const name = form.name.value;
     const email = form.email.value;
     const desc = form.desc.value;
-    const data = {name, email, description: desc, date: new Date()}
+    const data = { name, email, description: desc, date: new Date() };
 
     // Making POST request
     try {
@@ -33,7 +36,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
             setIsLoading(false);
             setShowStatusModal(false);
             form.reset();
-            refetch()
+            refetch();
           }
         });
     } catch (error) {
@@ -79,7 +82,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
 
             <form className="w-full max-w-lg" onSubmit={handleAddStatus}>
               <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full px-3">
+                <div className="w-full px-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-email"
@@ -92,6 +95,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
                     name="name"
                     type="text"
                     required
+                    defaultValue={user?.name}
                     placeholder="Enter your name"
                   />
                 </div>
@@ -108,6 +112,8 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
                     name="email"
                     type="email"
                     required
+                    readOnly
+                    defaultValue={user?.email}
                     placeholder="Enter your email"
                   />
                 </div>
@@ -118,14 +124,13 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
                   >
                     Description
                   </label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="desc"
+                  <textarea
+                    id=""
                     name="desc"
-                    type="text"
-                    required
-                    placeholder="Enter the description"
-                  />
+                    cols="30"
+                    rows="5"
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  ></textarea>
                 </div>
               </div>
 

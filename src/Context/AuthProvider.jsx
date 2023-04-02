@@ -5,12 +5,13 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [isAuthenticate, setIsAuthenticate] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
 
   const logout = () => {
     setIsAuthenticate(false);
     setUser({});
     localStorage.removeItem("accessToken");
+    window.location.reload();
   };
 
   return (

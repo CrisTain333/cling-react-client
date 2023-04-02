@@ -11,7 +11,6 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
     const name = form.name.value;
     const email = form.email.value;
     const mobile = form.mobile.value;
-    const password = form.password.value;
     try {
       fetch("https://cling-task-server.onrender.com/api/v1/user/update-user", {
         method: "PATCH",
@@ -19,7 +18,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
           "content-type": "application/json",
           Authorization: localStorage.getItem("accessToken"),
         },
-        body: JSON.stringify({ name, email, mobile, password }),
+        body: JSON.stringify({ name, email, mobile }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -37,6 +36,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
     } catch (error) {
       console.log(error);
       toast.error("Error Updating User");
+      setIsLoading(false);
     }
   };
 
@@ -132,31 +132,11 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Password
-                  </label>
-                  <input
-                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-password"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    required
-                    defaultValue={""}
-                  />
-                </div>
-              </div>
-
-              <div class="mt-3 text-center">
+              <div className="mt-3 text-center">
                 <button
                   disabled={isLoading}
                   type="submit"
-                  class={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
+                  className={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
                     isLoading && "cursor-not-allowed"
                   }`}
                 >

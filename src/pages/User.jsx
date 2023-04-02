@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import AddUserModal from "../components/addUsermodal/AddUserModal";
 import Table from "../components/UserTable/Table";
-import axios from "axios";
 import ReactLoading from "react-loading";
 const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
@@ -16,7 +15,7 @@ const User = () => {
 
   // const getUsers = async () => {
   //   const { data } = await axios.get(
-  //     `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`
+  //     `https://cling-task-server.onrender.com/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`
   //   );
   //   console.log(data);
   //   if (data?.status !== 200) {
@@ -37,7 +36,7 @@ const User = () => {
     ["users", search, currentPage, sort],
     async () => {
       const res = await fetch(
-        `http://localhost:8000/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`,
+        `https://cling-task-server.onrender.com/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`,
         {
           headers: {
             "content-type": "application/json",
@@ -48,11 +47,11 @@ const User = () => {
       if (res.status !== 200) {
         setErrorMessage(res.statusText);
         return setError(true);
+      } else {
+        const data = await res.json();
+        setTotalPages(data?.totalPages);
+        return data;
       }
-
-      const data = res.json();
-      setTotalPages(data?.totalPages);
-      return data;
     },
     {
       refetchOnWindowFocus: false,

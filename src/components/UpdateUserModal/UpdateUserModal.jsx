@@ -12,7 +12,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
     const email = form.email.value;
     const mobile = form.mobile.value;
     try {
-      fetch("http://localhost:8000/api/v1/user/update-user", {
+      fetch("https://cling-task-server.onrender.com/api/v1/user/update-user", {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

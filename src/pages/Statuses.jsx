@@ -20,7 +20,7 @@ export default function Statuses() {
     queryKey: ["Data"],
     queryFn: async () => {
       const res = await fetch(
-        "http://localhost:8000/api/v1/status/status-list",
+        "https://cling-task-server.onrender.com/api/v1/status/status-list",
         {
           headers: {
             "content-type": "application/json",

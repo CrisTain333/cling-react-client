@@ -19,7 +19,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
 
     // Making POST request
     try {
-      fetch("http://localhost:8000/api/v1/status/add-status", {
+      fetch("https://cling-task-server.onrender.com/api/v1/status/add-status", {
         method: "POST",
         headers: {
           "content-type": "application/json",

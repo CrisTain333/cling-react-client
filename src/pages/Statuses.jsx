@@ -10,6 +10,11 @@ export default function Statuses() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState("");
+  const [sortState, setSortState] = useState("none");
+  const [search, setSearch] = useState("");
+
+
+
 
   // Fetching Statuses
   useEffect(() => {
@@ -40,10 +45,10 @@ export default function Statuses() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["Data"],
+    queryKey: ["Data",search],
     queryFn: async () => {
       const res = await fetch(
-        "https://cling-task-server.onrender.com/api/v1/status/status-list",
+        "https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}",
         {
           headers: {
             "content-type": "application/json",
@@ -60,6 +65,19 @@ export default function Statuses() {
     },
   });
   console.log(data);
+
+  function handleSearch(e) {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+  
+
+  // Sort Methods
+  const sortMethods = {
+    none: { method: (a, b) => null },
+    ascending: { method: (a, b) => (a.date < b.date ? -1 : 1) },
+    descending: { method: (a, b) => (a.date > b.date ? -1 : 1) },
+  };
 
   if (isLoading) {
     return (
@@ -113,12 +131,12 @@ export default function Statuses() {
 
           <div className="flex justify-between items-center">
             <div className="filter-box">
-              <select className="select select-primary w-full max-w-xs">
+              <select className="select select-primary w-full max-w-xs" onChange={(e) => setSortState(e.target.value)}>
                 <option disabled selected>
                   Order by :-
                 </option>
-                <option>Oldest first</option>
-                <option>Newest first</option>
+                <option value="descending">Oldest first</option>
+                <option value="ascending">Newest first</option>
               </select>
             </div>
 
@@ -130,6 +148,8 @@ export default function Statuses() {
                     type="text"
                     placeholder="Search…"
                     className="input input-bordered"
+                    onChange={handleSearch}
+
                   />
                   <button className="btn btn-square">
                     <svg
@@ -153,8 +173,9 @@ export default function Statuses() {
           </div>
 
           <h1 className="text-3xl font-bold text-center mb-8">Status-List</h1>
+   
+          {data?.data?.sort(sortMethods[sortState].method).map((e) => {
 
-          {data?.data?.map((e) => {
             return (
               <div className="my-8">
                 <StatusList e={e} user={user} />

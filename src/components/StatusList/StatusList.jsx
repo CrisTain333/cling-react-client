@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 
 const StatusList = ({ e }) => {
   // const handleUpdateStatus = () => {
@@ -8,6 +8,7 @@ const StatusList = ({ e }) => {
   // const handleDeleteStatus = () => {
   //   console.log("Deleted status");
   // };
+  const [sortState, setSortState] = useState("none");
 
   return (
     <>

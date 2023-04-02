@@ -17,6 +17,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
         },
         body: JSON.stringify({ name, email, mobile, password }),
       })
@@ -146,7 +147,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
                     name="password"
                     placeholder="Password"
                     required
-                    defaultValue={''}
+                    defaultValue={""}
                   />
                 </div>
               </div>
@@ -185,4 +186,3 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
 };
 
 export default UpdateUserModal;
-

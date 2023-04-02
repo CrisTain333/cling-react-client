@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { AuthContext } from "../../Context/AuthProvider";
 
 const AddStatusModal = ({ setShowStatusModal, refetch, user }) => {
   const [isLoading, setIsLoading] = useState(false);

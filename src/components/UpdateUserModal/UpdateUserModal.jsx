@@ -42,7 +42,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
 
   return (
     <div>
-      <div className="flex justify-end right-0 mt-5 mb-4 mr-12">
+      <div className="flex justify-end right-0 mt-5 mb-4 mr-12 ">
         <input type="checkbox" id="my-modal" className="modal-toggle" />
         <div className="modal">
           <div className="modal-box">

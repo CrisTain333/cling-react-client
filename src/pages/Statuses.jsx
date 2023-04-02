@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import AddStatusModal from "../components/addStatusModal/AddStatusModal";
 // import Table from "../components/UserTable/Table";
@@ -9,8 +9,31 @@ export default function Statuses() {
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState("");
 
   // Fetching Statuses
+  useEffect(() => {
+    const getUser = () => {
+      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
+        headers: {
+          "content-type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((data) => {
+          setUser(data?.data);
+        })
+        .catch((error) => {
+          console.log(error, "line 28 App.js");
+          setUser("");
+        });
+    };
+    getUser();
+  }, []);
 
   const {
     data = [],
@@ -134,7 +157,7 @@ export default function Statuses() {
           {data?.data?.map((e) => {
             return (
               <div className="my-8">
-                <StatusList e={e} />
+                <StatusList e={e} user={user} />
               </div>
             );
           })}
@@ -142,6 +165,7 @@ export default function Statuses() {
             <AddStatusModal
               setShowStatusModal={setShowStatusModal}
               refetch={refetch}
+              user={user}
             />
           )}
 

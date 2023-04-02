@@ -11,15 +11,14 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
     const name = form.name.value;
     const email = form.email.value;
     const mobile = form.mobile.value;
-    const password = form.password.value;
     try {
-      fetch("https://cling-task-server.onrender.com/api/v1/user/update-user", {
+      fetch("http://localhost:8000/api/v1/user/update-user", {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("accessToken"),
         },
-        body: JSON.stringify({ name, email, mobile, password }),
+        body: JSON.stringify({ name, email, mobile }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -37,6 +36,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
     } catch (error) {
       console.log(error);
       toast.error("Error Updating User");
+      setIsLoading(false);
     }
   };
 

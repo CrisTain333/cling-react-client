@@ -51,6 +51,7 @@ const User = () => {
       }
 
       const data = res.json();
+      setTotalPages(data?.totalPages);
       return data;
     },
     {

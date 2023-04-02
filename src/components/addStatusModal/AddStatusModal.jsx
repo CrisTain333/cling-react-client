@@ -134,11 +134,11 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
                 </div>
               </div>
 
-              <div class="mt-3 text-center">
+              <div className="mt-3 text-center">
                 <button
                   disabled={isLoading}
                   type="submit"
-                  class={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
+                  className={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
                     isLoading && "cursor-not-allowed"
                   }`}
                 >

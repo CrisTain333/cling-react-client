@@ -157,9 +157,10 @@ export default function Statuses() {
           {data?.data?.map((e) => {
             return (
               <div className="my-8">
-                <StatusList e={e} user={user} />
+                <StatusList e={e} user={user} refetch={refetch} />
               </div>
             );
+            
           })}
           {showStatusModal && (
             <AddStatusModal

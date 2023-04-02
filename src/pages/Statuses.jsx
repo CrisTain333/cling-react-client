@@ -1,21 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import AddStatusModal from "../components/addStatusModal/AddStatusModal";
 // import Table from "../components/UserTable/Table";
 import StatusList from "../components/StatusList/StatusList";
-
+import ReactLoading from "react-loading";
 export default function Statuses() {
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   // Fetching Statuses
   const {
     data = [],
     isLoading,
     refetch,
-    isError,
   } = useQuery({
     queryKey: ["Data"],
     queryFn: async () => {
@@ -40,7 +38,18 @@ export default function Statuses() {
   console.log(data);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <>
+        <div className="flex h-[50vh] justify-center items-center">
+          <ReactLoading
+            type="spin"
+            color="#ff006e"
+            height={"10%"}
+            width={"10%"}
+          />
+        </div>
+      </>
+    );
   }
 
   // if (isError) {

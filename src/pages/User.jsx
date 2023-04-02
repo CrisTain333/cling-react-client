@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import AddUserModal from "../components/addUsermodal/AddUserModal";
 import Table from "../components/UserTable/Table";
 import axios from "axios";
-
+import ReactLoading from "react-loading";
 const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
   const [search, setSearch] = useState("");
@@ -48,7 +48,18 @@ const User = () => {
   }
 
   if (isLoading) {
-    return <p>Loading ......</p>;
+    return (
+      <>
+        <div className="flex h-[50vh] justify-center items-center">
+          <ReactLoading
+            type="spin"
+            color="#ff006e"
+            height={"10%"}
+            width={"10%"}
+          />
+        </div>
+      </>
+    );
   }
   return (
     <div>

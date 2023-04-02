@@ -3,25 +3,29 @@ import { RouterProvider } from "react-router-dom";
 import { AuthContext } from "./Context/AuthProvider";
 import { router } from "./routes/routes";
 const App = () => {
-  const { setUser, setIsAuthenticate, setLoading } = useContext(AuthContext);
+  const { setUser, setIsAuthenticate, setLoading, isAuthenticate } =
+    useContext(AuthContext);
 
   useEffect(() => {
     setLoading(true);
     const getUser = () => {
-      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
+      fetch("http://localhost:8000/api/v1/user/me", {
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("accessToken"),
         },
       })
-        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
         .then((data) => {
           setUser(data?.data);
           setIsAuthenticate(true);
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error, "line 28 App.js");
           setUser("");
           setIsAuthenticate(false);
           setLoading(false);

@@ -108,7 +108,6 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
                     name="email"
                     placeholder="Enter Email"
                     required
-                    readOnly
                     defaultValue={data[index].email}
                   />
                 </div>

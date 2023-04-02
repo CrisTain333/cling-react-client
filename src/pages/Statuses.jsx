@@ -1,16 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import AddStatusModal from "../components/addStatusModal/AddStatusModal";
 // import Table from "../components/UserTable/Table";
 import StatusList from "../components/StatusList/StatusList";
 import ReactLoading from "react-loading";
-import { AuthContext } from "../Context/AuthProvider";
 export default function Statuses() {
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { setUser, isAuthenticate, setLoading } = useContext(AuthContext);
 
   // Fetching Statuses
 
@@ -30,7 +28,6 @@ export default function Statuses() {
           },
         }
       );
-      console.log(res);
       if (res.status !== 200) {
         setErrorMessage(res.statusText);
         return setError(true);

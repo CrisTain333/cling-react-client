@@ -94,7 +94,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
                     id="name"
                     name="name"
                     type="text"
-                    required
+                    readOnly
                     defaultValue={user?.name}
                     placeholder="Enter your name"
                   />

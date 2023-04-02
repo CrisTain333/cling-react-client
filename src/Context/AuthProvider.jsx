@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
     setIsAuthenticate(false);
     setUser({});
     localStorage.removeItem("accessToken");
+    window.location.reload();
   };
 
   return (

@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.file--input {
+  border: none;
+  background: linear-gradient(45deg, rgb(56 189 248), rgb(168 85 247));
+  /* Replace the above color values with your desired gradient colors */
+  color: #fff; /* Set text color to white for better contrast */
+  padding: 1rem; /* Increase padding for better visual appearance */
+  border-radius: 0.5rem; /* Add rounded corners */
+  outline: none; /* Remove focus outline */
+}
+
+.file--input::-webkit-file-upload-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+}

@@ -178,9 +178,10 @@ export default function Statuses() {
 
             return (
               <div className="my-8">
-                <StatusList e={e} user={user} />
+                <StatusList e={e} user={user} refetch={refetch} />
               </div>
             );
+            
           })}
           {showStatusModal && (
             <AddStatusModal

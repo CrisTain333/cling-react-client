@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React,{useState} from "react";
 import { toast } from "react-hot-toast";
 
 const StatusList = ({ e, refetch }) => {
@@ -7,6 +7,12 @@ const StatusList = ({ e, refetch }) => {
     
     description: e.description,
   });
+
+
+  // const handleDeleteStatus = () => {
+  //   console.log("Deleted status");
+  // };
+  const [sortState, setSortState] = useState("none");
 
   const handleUpdate = async (id) => {
     try {

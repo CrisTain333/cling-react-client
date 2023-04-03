@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function AddDocumentModal({ setShowDocModal, refetch, user }) {
 
   const handleAddDoc = () => {};
@@ -44,12 +46,20 @@ export default function AddDocumentModal({ setShowDocModal, refetch, user }) {
                   >
                     Upload file
                   </label>
-                  <input
+                  {/* <input
                     type="file"
                     name="document"
 
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 file--input"
-                  ></input>
+                  ></input> */}
+                  <div>
+                      <input
+                        // onChange={imageChange}
+                        type="file"
+                        name="profilePicture"
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                      />
+                    </div>
                 </div>
               </div>
 

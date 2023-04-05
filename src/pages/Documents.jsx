@@ -1,8 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddDocumentModal from "../components/addDocumentModal/AddDocumentModal";
+import axios from "axios";
+import FileItem from "../components/FileItem/FileItem";
 
 const Documents = () => {
   const [showDocModal, setShowDocModal] = useState(false);
+  const [data, setData] = useState([])
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    const getUser = () => {
+      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
+        headers: {
+          "content-type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((data) => {
+          setUser(data?.data);
+        })
+        .catch((error) => {
+          console.log(error, "line 28 App.js");
+          setUser("");
+        });
+    };
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    const res = async () => {
+      const data = await axios.get(
+        `https://cling-task-server.onrender.com/api/v1/document/document_list`
+      );
+      console.log(data.data.data)
+      setData(data.data.data)
+    };
+    res();
+  }, []);
 
   return (
     <div>
@@ -27,7 +65,12 @@ const Documents = () => {
           Add Documents
         </label>
       </div>
-      {showDocModal && <AddDocumentModal setShowDocModal={setShowDocModal} />}
+       {
+        data.map(item => (
+          <FileItem item={item}/>
+        ))
+       }
+      {showDocModal && <AddDocumentModal setShowDocModal={setShowDocModal} user={user}/>}
     </div>
   );
 };

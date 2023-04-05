@@ -1,8 +1,30 @@
 import { useState } from "react";
+import axios from "axios";
 
-export default function AddDocumentModal({ setShowDocModal, refetch, user }) {
+export default function AddDocumentModal({ setShowDocModal, user }) {
 
-  const handleAddDoc = () => {};
+  const handleAddDoc = (e) => {
+    const file = e.target.files[0];
+    file.isUploading = true;
+    console.log(file);
+
+    //uploading the file to backend
+    const formData = new FormData();
+    formData.append('avatar', file);
+    formData.append('userId', user.name);
+    formData.append('filename', file.name);
+    axios.post('https://cling-task-server.onrender.com/api/v1/document/document_upload', formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    })
+    .then((res)=>{
+      file.isUploading=false;
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  };
 
   return (
     <div>
@@ -37,7 +59,7 @@ export default function AddDocumentModal({ setShowDocModal, refetch, user }) {
               Add Document
             </h2>
 
-            <form className="w-full max-w-lg" onSubmit={handleAddDoc}>
+            <form className="w-full max-w-lg" >
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3">
                   <label
@@ -58,6 +80,7 @@ export default function AddDocumentModal({ setShowDocModal, refetch, user }) {
                         type="file"
                         name="profilePicture"
                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                        onChange={handleAddDoc}
                       />
                     </div>
                 </div>

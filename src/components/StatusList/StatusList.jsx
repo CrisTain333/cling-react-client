@@ -12,7 +12,6 @@ const StatusList = ({ e, refetch }) => {
   // const handleDeleteStatus = () => {
   //   console.log("Deleted status");
   // };
-  const [sortState, setSortState] = useState("none");
 
   const handleUpdate = async (id) => {
     try {

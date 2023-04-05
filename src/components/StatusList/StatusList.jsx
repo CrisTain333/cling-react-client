@@ -64,9 +64,7 @@ const StatusList = ({ e, refetch }) => {
       description: e.target.value,
     });
   };
-
-
-  
+    
   return (
     <>
       <div className="card w-full  text-black border shadow-md">
@@ -91,8 +89,8 @@ const StatusList = ({ e, refetch }) => {
                 <span className="text-sm">Status by: </span>
                 {e.name}
               </h2>
-              <span className="text-xs my-4">{e.date.substring(0,10)}</span>
-              <p className="my-4">{e.description}</p>
+              <span className="text-xs my-4">{e.date?e.date.substring(0,10):"" }</span>
+              <p className="my-4">{e.description?e.description:""}</p>
               <div className="card-actions flex w-[80%] justify-between items-center my-3">
                 <div>
                   <button

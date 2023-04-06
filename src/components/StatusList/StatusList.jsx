@@ -92,7 +92,7 @@ const StatusList = ({ e, refetch }) => {
                 <span className="text-sm">Status by: </span>
                 {e.name}
               </h2>
-              <span className="text-xs my-4">{e.date.substring(0,10)}</span>
+              <span className="text-xs my-4">{e.date}</span>
               <p className="my-4">{e.description}</p>
               <div className="card-actions flex w-[80%] justify-between items-center my-3">
                 <div>

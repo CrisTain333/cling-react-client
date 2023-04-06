@@ -68,7 +68,6 @@ export default function Statuses() {
     setSearch(e.target.value);
   }
 
-
   // Sort Methods
   const sortMethods = {
     none: { method: (a, b) => null },
@@ -110,7 +109,7 @@ export default function Statuses() {
               onClick={() => setShowStatusModal(true)}
               htmlFor="my-modal"
               className="bg-gradient-to-r from-sky-400  to-purple-500 text-white uppercase text-sm font-semibold px-4 py-2 rounded flex items-center cursor-pointer"
-            // value="Login"
+              // value="Login"
             >
               <span className="mr-2">
                 <svg
@@ -128,7 +127,10 @@ export default function Statuses() {
 
           <div className="flex justify-between items-center">
             <div className="filter-box">
-              <select className="select select-primary w-full max-w-xs" onChange={(e) => setSortState(e.target.value)}>
+              <select
+                className="select select-primary w-full max-w-xs"
+                onChange={(e) => setSortState(e.target.value)}
+              >
                 <option disabled selected>
                   Order by :-
                 </option>
@@ -146,7 +148,6 @@ export default function Statuses() {
                     placeholder="Search…"
                     className="input input-bordered"
                     onChange={handleSearch}
-
                   />
                   <button className="btn btn-square">
                     <svg
@@ -171,19 +172,14 @@ export default function Statuses() {
 
           <h1 className="text-3xl font-bold text-center mb-8">Status-List</h1>
 
-
-
-
-          {  (error) && data?.data?.sort(sortMethods[sortState].method).map((e) => {
-
-            return (
-              <div className="my-8">
-                <StatusList e={e} user={user} refetch={refetch} />
-              </div>
-            );
-
-          })}
-
+          {error &&
+            data?.data?.sort(sortMethods[sortState].method).map((e) => {
+              return (
+                <div className="my-8">
+                  <StatusList e={e} user={user} refetch={refetch} />
+                </div>
+              );
+            })}
 
           {showStatusModal && (
             <AddStatusModal

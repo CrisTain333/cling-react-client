@@ -12,6 +12,7 @@ export default function Statuses() {
   const [user, setUser] = useState("");
   const [sortState, setSortState] = useState("none");
   const [search, setSearch] = useState("");
+  
 
 
 
@@ -48,7 +49,7 @@ export default function Statuses() {
     queryKey: ["Data",search],
     queryFn: async () => {
       const res = await fetch(
-        "https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}",
+        "https://cling-task-server.onrender.com/api/v1/status/status-list",
         {
           headers: {
             "content-type": "application/json",

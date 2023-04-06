@@ -12,10 +12,6 @@ export default function Statuses() {
   const [user, setUser] = useState("");
   const [sortState, setSortState] = useState("none");
   const [search, setSearch] = useState("");
-  
-
-
-
 
   // Fetching Statuses
   useEffect(() => {

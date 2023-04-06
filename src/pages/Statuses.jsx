@@ -12,10 +12,6 @@ export default function Statuses() {
   const [user, setUser] = useState("");
   const [sortState, setSortState] = useState("none");
   const [search, setSearch] = useState("");
-  
-
-
-
 
   // Fetching Statuses
   useEffect(() => {
@@ -46,10 +42,10 @@ export default function Statuses() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["Data",search],
+    queryKey: ["Data", search],
     queryFn: async () => {
       const res = await fetch(
-        "https://cling-task-server.onrender.com/api/v1/status/status-list",
+        `https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}`,
         {
           headers: {
             "content-type": "application/json",
@@ -71,7 +67,6 @@ export default function Statuses() {
     e.preventDefault();
     setSearch(e.target.value);
   }
-  
 
   // Sort Methods
   const sortMethods = {
@@ -132,7 +127,10 @@ export default function Statuses() {
 
           <div className="flex justify-between items-center">
             <div className="filter-box">
-              <select className="select select-primary w-full max-w-xs" onChange={(e) => setSortState(e.target.value)}>
+              <select
+                className="select select-primary w-full max-w-xs"
+                onChange={(e) => setSortState(e.target.value)}
+              >
                 <option disabled selected>
                   Order by :-
                 </option>
@@ -150,7 +148,6 @@ export default function Statuses() {
                     placeholder="Search…"
                     className="input input-bordered"
                     onChange={handleSearch}
-
                   />
                   <button className="btn btn-square">
                     <svg
@@ -174,15 +171,13 @@ export default function Statuses() {
           </div>
 
           <h1 className="text-3xl font-bold text-center mb-8">Status-List</h1>
-   
-          {data?.data?.sort(sortMethods[sortState].method).map((e) => {
 
+          {data?.data?.sort(sortMethods[sortState].method).map((e) => {
             return (
               <div className="my-8">
                 <StatusList e={e} user={user} refetch={refetch} />
               </div>
             );
-            
           })}
           {showStatusModal && (
             <AddStatusModal

@@ -4,9 +4,9 @@ import { toast } from "react-hot-toast";
 const StatusList = ({ e, refetch }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedStatus, setUpdatedStatus] = useState({
-    
     description: e.description,
   });
+
 
 
   // const handleDeleteStatus = () => {

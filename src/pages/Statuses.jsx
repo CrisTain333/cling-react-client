@@ -172,13 +172,15 @@ export default function Statuses() {
 
           <h1 className="text-3xl font-bold text-center mb-8">Status-List</h1>
 
-          {data?.data?.sort(sortMethods[sortState].method).map((e) => {
-            return (
-              <div className="my-8">
-                <StatusList e={e} user={user} refetch={refetch} />
-              </div>
-            );
-          })}
+          {error &&
+            data?.data?.sort(sortMethods[sortState].method).map((e) => {
+              return (
+                <div className="my-8">
+                  <StatusList e={e} user={user} refetch={refetch} />
+                </div>
+              );
+            })}
+
           {showStatusModal && (
             <AddStatusModal
               setShowStatusModal={setShowStatusModal}

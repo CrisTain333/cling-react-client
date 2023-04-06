@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import swal from "sweetalert";
 import UpdateUserModal from "../UpdateUserModal/UpdateUserModal";
+import { Link } from "react-router-dom";
 
 const Table = ({ data, refetch }) => {
   // function for updating the user details
@@ -46,8 +47,7 @@ const Table = ({ data, refetch }) => {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>update</th>
-              <th>delete</th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -58,27 +58,42 @@ const Table = ({ data, refetch }) => {
                   <td>{e.name}</td>
                   <td>{e.email}</td>
                   <td>{e.mobile}</td>
-                  <td>
+                  <td className="flex justify-center">  
                     <label
                       onClick={() => {
                         setShowUpdateUserModal(true);
                         setIndex(i);
                       }}
                       htmlFor="my-modal"
-                      className="btn bg-sky-400 text-white border-none"
+                      className="btn bg-sky-400 text-white border-none w-22 h-10 px-5 m-1 w-20 text-sm font-mono rounded-md"
                       // value="Login"
                     >
                       Update
                     </label>
-                  </td>
-                  <th>
                     <button
-                      className="btn bg-red-500 text-white border-none"
+                      className="btn bg-red-500 text-white border-none w-22 h-10 px-5 m-1 w-20 text-sm font-mono rounded-md"
                       onClick={() => handleDeleteUser(e._id)}
                     >
                       Delete
                     </button>
-                  </th>
+
+                    <Link
+                       to={`/users/${e._id}/status`}
+                         className="btn bg-green-500 text-sm text-white border-none h-10 font-mono px-5 m-1 w-20 rounded-md"
+                    >
+  Status
+</Link>
+
+                    <button 
+                      className="btn bg-gray-500 text-sm text-white border-none w-30 h-10  m-1 font-mono w-20 rounded-md"
+                      onClick={() => {
+                        //navigate to documnets
+                      }}
+                    >
+                      Document
+                    </button>
+                  </td>
+                 
                 </tr>
               );
             })}

@@ -42,10 +42,10 @@ export default function Statuses() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["Data",search],
+    queryKey: ["Data", search],
     queryFn: async () => {
       const res = await fetch(
-        "https://cling-task-server.onrender.com/api/v1/status/status-list",
+        `https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}`,
         {
           headers: {
             "content-type": "application/json",
@@ -67,7 +67,7 @@ export default function Statuses() {
     e.preventDefault();
     setSearch(e.target.value);
   }
-  
+
 
   // Sort Methods
   const sortMethods = {
@@ -110,7 +110,7 @@ export default function Statuses() {
               onClick={() => setShowStatusModal(true)}
               htmlFor="my-modal"
               className="bg-gradient-to-r from-sky-400  to-purple-500 text-white uppercase text-sm font-semibold px-4 py-2 rounded flex items-center cursor-pointer"
-              // value="Login"
+            // value="Login"
             >
               <span className="mr-2">
                 <svg
@@ -170,16 +170,21 @@ export default function Statuses() {
           </div>
 
           <h1 className="text-3xl font-bold text-center mb-8">Status-List</h1>
-   
-          {data?.data?.sort(sortMethods[sortState].method).map((e) => {
+
+
+
+
+          {  (error) && data?.data?.sort(sortMethods[sortState].method).map((e) => {
 
             return (
               <div className="my-8">
                 <StatusList e={e} user={user} refetch={refetch} />
               </div>
             );
-            
+
           })}
+
+
           {showStatusModal && (
             <AddStatusModal
               setShowStatusModal={setShowStatusModal}

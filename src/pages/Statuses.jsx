@@ -10,7 +10,7 @@ export default function Statuses() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState("");
-  const [sortState, setSortState] = useState("none");
+  const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
 
   // Fetching Statuses
@@ -37,15 +37,15 @@ export default function Statuses() {
     getUser();
   }, []);
 
-  const {
+   const {
     data = [],
     isLoading,
     refetch,
-  } = useQuery({
-    queryKey: ["Data", search],
-    queryFn: async () => {
+  } = useQuery(
+    ["Data", search],
+    async () => {
       const res = await fetch(
-        `https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}`,
+        `https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}&sort=${sort}`,
         {
           headers: {
             "content-type": "application/json",
@@ -56,24 +56,29 @@ export default function Statuses() {
       if (res.status !== 200) {
         setErrorMessage(res.statusText);
         return setError(true);
+      } else {
+        const data = await res.json();
+        return data;
       }
-      const data = res.json();
-      return data;
     },
-  });
-  console.log(data);
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+    }
+  );
 
+  console.log(data);
+    
   function handleSearch(e) {
     e.preventDefault();
     setSearch(e.target.value);
   }
-
+  function handleSort(e) {
+    setSort(e.target.value);
+  }
+  
   // Sort Methods
-  const sortMethods = {
-    none: { method: (a, b) => null },
-    ascending: { method: (a, b) => (a.date < b.date ? -1 : 1) },
-    descending: { method: (a, b) => (a.date > b.date ? -1 : 1) },
-  };
+  
 
   if (isLoading) {
     return (
@@ -128,14 +133,15 @@ export default function Statuses() {
           <div className="flex justify-between items-center">
             <div className="filter-box">
               <select
+               value={sort}
                 className="select select-primary w-full max-w-xs"
-                onChange={(e) => setSortState(e.target.value)}
+                onChange={handleSort}
               >
                 <option disabled selected>
                   Order by :-
                 </option>
-                <option value="descending">Oldest first</option>
-                <option value="ascending">Newest first</option>
+                <option value="desc">Oldest first</option>
+                <option value="asc">Newest first</option>
               </select>
             </div>
 
@@ -171,9 +177,10 @@ export default function Statuses() {
           </div>
 
           <h1 className="text-3xl font-bold text-center mb-8">Status-List</h1>
-
-          {error &&
-            data?.data?.sort(sortMethods[sortState].method).map((e) => {
+        
+          {
+          (!error) &&
+            data?.data?.map((e) => {
               return (
                 <div className="my-8">
                   <StatusList e={e} user={user} refetch={refetch} />

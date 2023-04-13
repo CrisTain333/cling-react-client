@@ -39,8 +39,39 @@ const Profile = () => {
         </div>
 
         {/* User Details Section  */}
-        <div className='user__section border-2 border-red-500 h-5/6 w-3/4 mt-8 ml-4 p-4'>
-            <h1>This is the user details section</h1>
+        <div className='user__section h-5/6 w-3/4 mt-8 ml-4 p-4'>
+            <div className="flex flex-col items-center">
+                <h1 className="text-4xl font-bold ">About Me!</h1>
+                <p className='text-center mt-8 w-2/3'>A skilled React developer who creates efficient, responsive, and user-friendly web applications with a strong attention to detail and problem-solving abilities.</p>
+            </div>
+            <div className="form-control ml-16">
+                <label className="label mt-12">
+                    <span className="label-text">Your Email</span>
+                </label>
+                <label className="input-group">
+                    <span>Email</span>
+                    <input type="text" placeholder="info@site.com" className="input input-bordered" />
+                </label>
+
+                <label className="label mt-8">
+                    <span className="label-text">Your Name</span>
+                </label>
+                <label className="input-group">
+                    <span>Name</span>
+                    <input type="text" placeholder="John Doe" className="input input-bordered" />
+                </label>
+
+                <label className="label mt-8">
+                    <span className="label-text">Your Skills</span>
+                </label>
+                <label className="input-group">
+                    <span>Skills</span>
+                    <input type="text" placeholder="NodeJs" className="input input-bordered" />
+                </label>
+            </div>
+            <div className="flex items-center justify-center mt-20">
+                <button className='btn btn-success w-40'>Submit</button>
+            </div>
         </div>
 
     </div>

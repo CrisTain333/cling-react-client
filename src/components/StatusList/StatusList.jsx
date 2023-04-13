@@ -140,7 +140,7 @@ const StatusList = ({ e, refetch }) => {
               </button>
               
             </div>
-</p>    
+   
           </div>
     
     )} </div>

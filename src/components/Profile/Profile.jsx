@@ -1,4 +1,7 @@
 import React from 'react'
+import TelegramIcon from '../../assets/logos/telegram.png'
+import GithubIcon from '../../assets/logos/github.png'
+import InstagramIcon from '../../assets/logos/instagram.png'
 
 const Profile = () => {
 
@@ -7,34 +10,40 @@ const Profile = () => {
     const bio = 'React Developer';
 
   return (
-    <div className="container flex flex-row">
-        {/* Profile card  */}
-        <div className='card max-h-80 mt-8 flex flex-col justify-center items-center  bg-base-200 w-60 '>
-            <img src={image} alt={name} className="w-40 h-40 rounded-full object-cover mb-6 mt-8" />
-            <h1 className="text-2xl font-bold mb-1">{name}</h1>
-            <span className='w-24 border-b-4 border-primary mb-2'></span>
-            <p className="text-gray-600 text-lg mb-8">{bio}</p>
-        </div>
+    <div className='container h-screen flex'>
 
-         {/* Bio and Skills section */}
-        <div className='mx-8 my-8 w-2/3 flex flex-col items-center align-center'>
-            <h1 className="text-3xl font-bold">About Me</h1>
-            <span className='w-20 border-b-4 border-primary mb-4'></span>
+        {/* Profile Section  */}
+        <div className='profile__section h-5/6 w-1/4'>
 
-            <div className='flex mr-64 justify-center items-center'>
-                <div className="form-control mt-8 w-56">
-                    <label className="label">
-                        <span className="label-text">Your bio</span>
-                    </label>
-                    <textarea className="textarea textarea-primary h-76" placeholder="Bio"></textarea>
-                </div>
-                <button className='btn btn-sm btn-accent w-20 mt-28 mx-8'>Save</button>
+            {/* Profile Card  */}
+            <div className="profile__card card bg-base-200 h-1/2 items-center shadow-2xl mt-8">
+                <img src={image} alt={name} className="w-40 h-40 rounded-full object-cover mb-6 mt-8 " />
+                <h1 className="text-2xl font-bold mb-1">{name}</h1>
+                <span className='w-24 border-b-4 border-primary mb-2'></span>
+                <p className="text-gray-600 text-lg mb-8">{bio}</p>
             </div>
 
+            {/* Social Icons  */}
+            <div className="social__icons h-1/2 flex flex-col justify-end items-center">
+                <h1 className="text-xl font-bold mb-1">Let's Connect: </h1>
+                <span className='w-24 border-b-4 border-secondary mb-2'></span>
+
+                <div class="social-icons flex w-full justify-evenly m-8">
+                    <a href="https://t.me/Tapas_20" target="_blank"><img src={TelegramIcon} alt="Telegram logo" className='w-8 hover:-translate-y-1'/></a>
+                    <a href="https://github.com/tapas-code" target="_blank"><img src={GithubIcon} alt="Github logo" className='w-8 hover:-translate-y-1'/></a>
+                    <a href="https://www.instagram.com/cinechrons/" target="_blank"><img src={InstagramIcon} alt="Instagram logo" className='w-8 hover:-translate-y-1'/></a>
+                </div>
+
+            </div>
 
         </div>
-        
-     </div>
+
+        {/* User Details Section  */}
+        <div className='user__section border-2 border-red-500 h-5/6 w-3/4 mt-8 ml-4 p-4'>
+            <h1>This is the user details section</h1>
+        </div>
+
+    </div>
   );
 }
 

@@ -4,6 +4,7 @@ import Layout from "../Layout/Layout";
 import Statuses from "../pages/Statuses";
 import Documents from "../pages/Documents";
 import UserStatusPage from "../pages/UserStatusPage";
+import Profile from "../components/Profile/Profile";
 
 const { createBrowserRouter, Routes,  } = require("react-router-dom");
 
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "/users/:id/status",
         element: <UserStatusPage />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

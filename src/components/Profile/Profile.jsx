@@ -50,7 +50,12 @@ const Profile = () => {
                 </label>
                 <label className="input-group">
                     <span>Email</span>
-                    <input type="text" placeholder="info@site.com" className="input input-bordered" />
+                    <input 
+                        type="text" 
+                        placeholder="info@site.com" 
+                        className="input input-bordered cursor-not-allowed" 
+                        title='Cannot be modified'
+                        readOnly/>
                 </label>
 
                 <label className="label mt-8">
@@ -70,7 +75,7 @@ const Profile = () => {
                 </label>
             </div>
             <div className="flex items-center justify-center mt-20">
-                <button className='btn btn-success w-40'>Submit</button>
+                <button className='btn btn-outline btn-success w-40'>Submit</button>
             </div>
         </div>
 

@@ -1,13 +1,50 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import TelegramIcon from '../../assets/logos/telegram.png'
 import GithubIcon from '../../assets/logos/github.png'
 import InstagramIcon from '../../assets/logos/instagram.png'
 
 const Profile = () => {
 
-    const image = 'https://i.pinimg.com/550x/b4/23/ee/b423ee8161ffc5c8310f8a4b4c993734.jpg';
-    const name = 'Hinata Hyuga';
+    const [user, setUser] = useState({
+        _id: '',
+        name: '',
+        email: '',
+        mobile: '',
+        password: '',
+        createdDate: '',
+    });
+
+    // Fetching user Details 
+    useEffect(() => {
+        const getUser = () => {
+          fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
+            headers: {
+              "content-type": "application/json",
+              Authorization: localStorage.getItem("accessToken"),
+            },
+          })
+            .then((res) => {
+              console.log(res);
+              return res.json();
+            })
+            .then((data) => {
+              setUser(data?.data);
+              console.log(data.data)
+            })
+            .catch((error) => {
+              console.log(error, "line 28 App.js");
+              setUser("");
+            });
+        };
+        getUser();
+      }, []);
+
+    // const image = 'https://i.pinimg.com/550x/b4/23/ee/b423ee8161ffc5c8310f8a4b4c993734.jpg';
+    const image = 'https://i.pinimg.com/736x/bf/14/ea/bf14ea2a55137bde0e7c9decd516734a.jpg';
+    // const image = 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71BQOludsuL._SY679_.jpg';
+    const name = user.name;
     const bio = 'React Developer';
+    const email = user.email;
 
   return (
     <div className='container h-screen flex'>
@@ -52,7 +89,7 @@ const Profile = () => {
                     <span>Email</span>
                     <input 
                         type="text" 
-                        placeholder="info@site.com" 
+                        placeholder={email}
                         className="input input-bordered cursor-not-allowed" 
                         title='Cannot be modified'
                         readOnly/>

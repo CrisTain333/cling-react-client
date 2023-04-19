@@ -2,28 +2,61 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function AddDocumentModal({ setShowDocModal, user }) {
+  const [selectedImage, setSelectedImage] = useState();
+
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
 
   const handleAddDoc = (e) => {
-    const file = e.target.files[0];
-    file.isUploading = true;
-    console.log(file);
+    e.preventDefault();
+    const projectImage = e.target.file.files[0];
+    const formData = new FormData();
+    formData.append("image", projectImage);
+    formData.append("originalname", projectImage.name);
+    const file = projectImage;
+    console.log(projectImage);
+    const email = user?.email;
+    // file.isUploading = true;
+    console.log(email);
 
     //uploading the file to backend
-    const formData = new FormData();
-    formData.append('avatar', file);
-    formData.append('userId', user.name);
-    formData.append('filename', file.name);
-    axios.post('https://cling-task-server.onrender.com/api/v1/document/document_upload', formData, {
+    // const formData = new FormData();
+    // formData.append("file", file);
+    // formData.append("userId", user.name);
+    // formData.append("filename", file.name);
+    const data = {
+      file,
+      email,
+    };
+
+    console.log(data);
+    // axios
+    //   .post("http://localhost:8000/api/v1/document/document_upload", data, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     // file.isUploading = false;
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    fetch("http://localhost:8000/api/v1/document/document_upload", {
+      method: "POST",
       headers: {
-        "Content-Type": "multipart/form-data",
-      }
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ file, email }),
     })
-    .then((res)=>{
-      file.isUploading=false;
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (
@@ -59,7 +92,7 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
               Add Document
             </h2>
 
-            <form className="w-full max-w-lg" >
+            <form className="w-full max-w-lg" onSubmit={handleAddDoc}>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3">
                   <label
@@ -75,14 +108,14 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 file--input"
                   ></input> */}
                   <div>
-                      <input
-                        // onChange={imageChange}
-                        type="file"
-                        name="profilePicture"
-                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
-                        onChange={handleAddDoc}
-                      />
-                    </div>
+                    <input
+                      onChange={imageChange}
+                      type="file"
+                      name="file"
+                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
+                      // onChange={handleAddDoc}
+                    />
+                  </div>
                 </div>
               </div>
 

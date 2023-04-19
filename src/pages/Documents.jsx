@@ -5,7 +5,7 @@ import FileItem from "../components/FileItem/FileItem";
 
 const Documents = () => {
   const [showDocModal, setShowDocModal] = useState(false);
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -31,13 +31,15 @@ const Documents = () => {
     getUser();
   }, []);
 
+  console.log(user);
+
   useEffect(() => {
     const res = async () => {
       const data = await axios.get(
         `https://cling-task-server.onrender.com/api/v1/document/document_list`
       );
-      console.log(data.data.data)
-      setData(data.data.data)
+      console.log(data.data.data);
+      setData(data.data.data);
     };
     res();
   }, []);
@@ -65,12 +67,14 @@ const Documents = () => {
           Add Documents
         </label>
       </div>
-       {
+      {/* {
         data.map(item => (
           <FileItem item={item}/>
         ))
-       }
-      {showDocModal && <AddDocumentModal setShowDocModal={setShowDocModal} user={user}/>}
+       } */}
+      {showDocModal && (
+        <AddDocumentModal setShowDocModal={setShowDocModal} user={user} />
+      )}
     </div>
   );
 };

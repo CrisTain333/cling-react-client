@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function AddDocumentModal({ setShowDocModal, user }) {
   const [selectedImage, setSelectedImage] = useState();
@@ -11,8 +12,9 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
     }
   };
 
-  const handleAddDoc = (e) => {
+  const handleAddDoc = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const file = selectedImage;
 
     //uploading the file to backend
@@ -21,8 +23,8 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
     formData.append("email", user?.email);
     formData.append("filename", file.name);
 
-    axios
-      .post(
+    try {
+      const response = await axios.post(
         "https://cling-task-server.onrender.com/api/v1/document/document_upload",
         formData,
         {
@@ -30,14 +32,15 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
             "Content-Type": "multipart/form-data",
           },
         }
-      )
-      .then((res) => {
-        // file.isUploading = false;
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      );
+      toast.success(response?.data?.message);
+      setLoading(false);
+      setShowDocModal(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.toString());
+      setLoading(false);
+    }
   };
 
   return (
@@ -102,12 +105,12 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
 
               <div className="mt-3 text-center">
                 <button
-                  //   disabled={isLoading}
+                  disabled={loading}
                   type="submit"
                   className={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 
-                  `}
+                   ${loading && "bg-green-300 cursor-not-allowed"} `}
                 >
-                  Upload
+                  {loading ? "Uploading ...." : "Upload"}
                 </button>
               </div>
             </form>

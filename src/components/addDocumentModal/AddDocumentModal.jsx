@@ -1,8 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function AddDocumentModal({ setShowDocModal, user }) {
+export default function AddDocumentModal({ setShowDocModal }) {
   const [selectedImage, setSelectedImage] = useState();
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    const getUser = () => {
+      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
+        headers: {
+          "content-type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setUser(data?.data);
+        })
+        .catch((error) => {
+          console.log(error, "line 28 App.js");
+          setUser("");
+        });
+    };
+    getUser();
+  }, []);
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -12,51 +37,57 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
 
   const handleAddDoc = (e) => {
     e.preventDefault();
-    const projectImage = e.target.file.files[0];
-    const formData = new FormData();
-    formData.append("image", projectImage);
-    formData.append("originalname", projectImage.name);
-    const file = projectImage;
-    console.log(projectImage);
-    const email = user?.email;
-    // file.isUploading = true;
-    console.log(email);
+    // const projectImage = e.target.file.files[0];
+
+    // const file = e.target.files[0];
+    // const formData = new FormData();
+    // formData.append("image", projectImage);
+    // formData.append("originalname", projectImage.name);
+    const file = selectedImage;
+    // console.log(projectImage);
+    // const email = user?.email;
+    // // file.isUploading = true;
+    // console.log(email);
 
     //uploading the file to backend
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // formData.append("userId", user.name);
-    // formData.append("filename", file.name);
-    const data = {
-      file,
-      email,
-    };
+    const formData = new FormData();
+    formData.append("avatar", file);
+    formData.append("email", user?.name);
+    formData.append("filename", file.name);
+    // const data = {
+    //   file,
+    //   email,
+    // };
 
-    console.log(data);
-    // axios
-    //   .post("http://localhost:8000/api/v1/document/document_upload", data, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((res) => {
-    //     // file.isUploading = false;
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    fetch("http://localhost:8000/api/v1/document/document_upload", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ file, email }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+    console.log(formData);
+    axios
+      .post(
+        "https://cling-task-server.onrender.com/api/v1/document/document_upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        // file.isUploading = false;
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+    // fetch("https://cling-task-server.onrender.com/api/v1/document/document_upload", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
   };
 
   return (
@@ -111,7 +142,7 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
                     <input
                       onChange={imageChange}
                       type="file"
-                      name="file"
+                      name="avatar"
                       className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
                       // onChange={handleAddDoc}
                     />

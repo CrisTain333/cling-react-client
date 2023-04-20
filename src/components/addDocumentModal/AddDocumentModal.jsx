@@ -37,29 +37,14 @@ export default function AddDocumentModal({ setShowDocModal }) {
 
   const handleAddDoc = (e) => {
     e.preventDefault();
-    // const projectImage = e.target.file.files[0];
-
-    // const file = e.target.files[0];
-    // const formData = new FormData();
-    // formData.append("image", projectImage);
-    // formData.append("originalname", projectImage.name);
     const file = selectedImage;
-    // console.log(projectImage);
-    // const email = user?.email;
-    // // file.isUploading = true;
-    // console.log(email);
 
     //uploading the file to backend
     const formData = new FormData();
     formData.append("avatar", file);
-    formData.append("email", user?.name);
+    formData.append("email", user?.email);
     formData.append("filename", file.name);
-    // const data = {
-    //   file,
-    //   email,
-    // };
 
-    console.log(formData);
     axios
       .post(
         "https://cling-task-server.onrender.com/api/v1/document/document_upload",
@@ -77,17 +62,6 @@ export default function AddDocumentModal({ setShowDocModal }) {
       .catch((err) => {
         console.log(err);
       });
-    // fetch("https://cling-task-server.onrender.com/api/v1/document/document_upload", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
   };
 
   return (

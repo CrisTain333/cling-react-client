@@ -1,33 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function AddDocumentModal({ setShowDocModal }) {
+export default function AddDocumentModal({ setShowDocModal, user }) {
   const [selectedImage, setSelectedImage] = useState();
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    const getUser = () => {
-      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
-        headers: {
-          "content-type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          setUser(data?.data);
-        })
-        .catch((error) => {
-          console.log(error, "line 28 App.js");
-          setUser("");
-        });
-    };
-    getUser();
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {

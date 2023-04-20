@@ -68,9 +68,11 @@ const Documents = () => {
         </label>
       </div>
       <div className="mt-5">
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-12 gap-5">
           {data.map((item) => (
-            <DocumentCard item={item} />
+            <div className="col-span-12 md:col-span-6 lg:col-span-4">
+              <DocumentCard item={item} />
+            </div>
           ))}
         </div>
       </div>

@@ -34,7 +34,7 @@ const Documents = () => {
   useEffect(() => {
     const res = async () => {
       const data = await axios.get(
-        `http://localhost:8000/api/v1/document/document_list`
+        `https://cling-task-server.onrender.com/api/v1/document/document_list`
       );
       console.log(data?.data);
       setData(data?.data?.data);

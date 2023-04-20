@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function AddDocumentModal({ setShowDocModal, user }) {
   const [selectedImage, setSelectedImage] = useState();
+  const [loading, setLoading] = useState(false);
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -10,53 +12,35 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
     }
   };
 
-  const handleAddDoc = (e) => {
+  const handleAddDoc = async (e) => {
     e.preventDefault();
-    const projectImage = e.target.file.files[0];
-    const formData = new FormData();
-    formData.append("image", projectImage);
-    formData.append("originalname", projectImage.name);
-    const file = projectImage;
-    console.log(projectImage);
-    const email = user?.email;
-    // file.isUploading = true;
-    console.log(email);
+    setLoading(true);
+    const file = selectedImage;
 
     //uploading the file to backend
-    // const formData = new FormData();
-    // formData.append("file", file);
-    // formData.append("userId", user.name);
-    // formData.append("filename", file.name);
-    const data = {
-      file,
-      email,
-    };
+    const formData = new FormData();
+    formData.append("avatar", file);
+    formData.append("email", user?.email);
+    formData.append("filename", file.name);
 
-    console.log(data);
-    // axios
-    //   .post("http://localhost:8000/api/v1/document/document_upload", data, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((res) => {
-    //     // file.isUploading = false;
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    fetch("http://localhost:8000/api/v1/document/document_upload", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ file, email }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    try {
+      const response = await axios.post(
+        "https://cling-task-server.onrender.com/api/v1/document/document_upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      toast.success(response?.data?.message);
+      setLoading(false);
+      setShowDocModal(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.toString());
+      setLoading(false);
+    }
   };
 
   return (
@@ -111,7 +95,7 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
                     <input
                       onChange={imageChange}
                       type="file"
-                      name="file"
+                      name="avatar"
                       className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
                       // onChange={handleAddDoc}
                     />
@@ -121,12 +105,12 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
 
               <div className="mt-3 text-center">
                 <button
-                  //   disabled={isLoading}
+                  disabled={loading}
                   type="submit"
                   className={`mx-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 
-                  `}
+                   ${loading && "bg-green-300 cursor-not-allowed"} `}
                 >
-                  Upload
+                  {loading ? "Uploading ...." : "Upload"}
                 </button>
               </div>
             </form>

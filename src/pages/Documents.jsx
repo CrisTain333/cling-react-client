@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddDocumentModal from "../components/addDocumentModal/AddDocumentModal";
 import axios from "axios";
 import FileItem from "../components/FileItem/FileItem";
+import DocumentCard from "../components/DocumentCard/DocumentCard";
 
 const Documents = () => {
   const [showDocModal, setShowDocModal] = useState(false);
@@ -17,32 +18,31 @@ const Documents = () => {
         },
       })
         .then((res) => {
-          console.log(res);
           return res.json();
         })
         .then((data) => {
           setUser(data?.data);
         })
         .catch((error) => {
-          console.log(error, "line 28 App.js");
+          console.log(error);
           setUser("");
         });
     };
     getUser();
   }, []);
 
-  console.log(user);
-
   useEffect(() => {
     const res = async () => {
       const data = await axios.get(
-        `https://cling-task-server.onrender.com/api/v1/document/document_list`
+        `http://localhost:8000/api/v1/document/document_list`
       );
-      console.log(data.data.data);
-      setData(data.data.data);
+      console.log(data?.data);
+      setData(data?.data?.data);
     };
     res();
   }, []);
+
+  console.log(data);
 
   return (
     <div>
@@ -67,11 +67,15 @@ const Documents = () => {
           Add Documents
         </label>
       </div>
-      {/* {
-        data.map(item => (
-          <FileItem item={item}/>
-        ))
-       } */}
+      <div className="mt-5">
+        <div className="grid grid-cols-12 gap-5">
+          {data.map((item) => (
+            <div className="col-span-12 md:col-span-6 lg:col-span-4">
+              <DocumentCard item={item} />
+            </div>
+          ))}
+        </div>
+      </div>
       {showDocModal && (
         <AddDocumentModal setShowDocModal={setShowDocModal} user={user} />
       )}

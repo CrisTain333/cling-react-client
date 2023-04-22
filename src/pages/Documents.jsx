@@ -10,6 +10,8 @@ const Documents = () => {
   const [showDocModal, setShowDocModal] = useState(false);
   const [data, setData] = useState([]);
   const { user } = useContext(AuthContext);
+  const [reFresh, setReFresh] = useState(false);
+  console.log(user);
 
   const res = async () => {
     const data = await axios.get(
@@ -20,8 +22,10 @@ const Documents = () => {
   };
 
   useEffect(() => {
+    setReFresh(true);
     res();
-  }, [user]);
+    setReFresh(false);
+  }, [user, reFresh]);
 
   console.log(data);
 
@@ -77,7 +81,7 @@ const Documents = () => {
             <div className="grid grid-cols-12 gap-5">
               {data?.map((item) => (
                 <div className="col-span-12 md:col-span-6 lg:col-span-4">
-                  <DocumentCard res={res} item={item} />
+                  <DocumentCard setReFresh={setReFresh} item={item} />
                 </div>
               ))}
             </div>

@@ -21,23 +21,43 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <User />,
+        element: (
+          <PrivateRoute>
+            <User />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/status",
-        element: <Statuses />,
+        element: (
+          <PrivateRoute>
+            <Statuses />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/documents",
-        element: <Documents />,
+        element: (
+          <PrivateRoute>
+            <Documents />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/users/:id/status",
-        element: <UserStatusPage />,
+        element: (
+          <PrivateRoute>
+            <UserStatusPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
     ],
   },

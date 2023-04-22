@@ -3,7 +3,7 @@ import React from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-const DocumentCard = ({ item, res }) => {
+const DocumentCard = ({ item, setReFresh }) => {
   const handleDeleteDocument = async (id) => {
     try {
       const response = await axios.delete(
@@ -11,7 +11,7 @@ const DocumentCard = ({ item, res }) => {
       );
       console.log(response?.data);
       toast.success(response?.data?.message);
-      res();
+      setReFresh(true);
     } catch (error) {
       console.log(error);
       toast.error("Error deleting Document");

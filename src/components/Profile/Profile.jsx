@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import TelegramIcon from "../../assets/logos/telegram.png";
 import GithubIcon from "../../assets/logos/github.png";
 import InstagramIcon from "../../assets/logos/instagram.png";

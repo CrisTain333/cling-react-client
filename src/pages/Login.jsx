@@ -1,11 +1,15 @@
 import React, { useContext, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-  const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext);
+  const { isAuthenticate, setIsAuthenticate, refresh } =
+    useContext(AuthContext);
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,8 +30,10 @@ export default function Login() {
           if (data.status === 200) {
             toast.success(data?.message);
             localStorage.setItem("accessToken", data?.token);
+            refresh();
             setLoading(false);
             setIsAuthenticate(true);
+            navigate(from, { replace: true });
           } else {
             toast.error(data?.message);
             setLoading(false);

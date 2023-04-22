@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../Context/AuthProvider";
 
-export default function AddDocumentModal({ setShowDocModal, user, res }) {
+export default function AddDocumentModal({ setShowDocModal, res }) {
+  const { user } = useContext(AuthContext);
   const [selectedImage, setSelectedImage] = useState();
   const [loading, setLoading] = useState(false);
 

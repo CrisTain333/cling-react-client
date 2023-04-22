@@ -35,8 +35,8 @@ export default function AddDocumentModal({ setShowDocModal, user, res }) {
       );
       toast.success(response?.data?.message);
       setLoading(false);
-      setShowDocModal(false);
       res();
+      setShowDocModal(false);
     } catch (error) {
       console.log(error);
       toast.error(error.toString());

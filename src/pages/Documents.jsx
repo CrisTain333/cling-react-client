@@ -3,6 +3,7 @@ import AddDocumentModal from "../components/addDocumentModal/AddDocumentModal";
 import axios from "axios";
 import FileItem from "../components/FileItem/FileItem";
 import DocumentCard from "../components/DocumentCard/DocumentCard";
+import { Toaster } from "react-hot-toast";
 
 const Documents = () => {
   const [showDocModal, setShowDocModal] = useState(false);
@@ -31,14 +32,15 @@ const Documents = () => {
     getUser();
   }, []);
 
+  const res = async () => {
+    const data = await axios.get(
+      `https://cling-task-server.onrender.com/api/v1/document/document_list`
+    );
+    console.log(data?.data);
+    setData(data?.data?.data);
+  };
+
   useEffect(() => {
-    const res = async () => {
-      const data = await axios.get(
-        `https://cling-task-server.onrender.com/api/v1/document/document_list`
-      );
-      console.log(data?.data);
-      setData(data?.data?.data);
-    };
     res();
   }, []);
 
@@ -47,6 +49,7 @@ const Documents = () => {
   return (
     <div>
       {" "}
+      <Toaster />
       <div className="Add_User_Button flex justify-end my-10">
         <label
           onClick={() => setShowDocModal(true)}
@@ -71,13 +74,17 @@ const Documents = () => {
         <div className="grid grid-cols-12 gap-5">
           {data.map((item) => (
             <div className="col-span-12 md:col-span-6 lg:col-span-4">
-              <DocumentCard item={item} />
+              <DocumentCard res={res} item={item} />
             </div>
           ))}
         </div>
       </div>
       {showDocModal && (
-        <AddDocumentModal setShowDocModal={setShowDocModal} user={user} />
+        <AddDocumentModal
+          setShowDocModal={setShowDocModal}
+          user={user}
+          res={res}
+        />
       )}
     </div>
   );

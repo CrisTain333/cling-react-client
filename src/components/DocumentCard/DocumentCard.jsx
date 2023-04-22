@@ -3,15 +3,18 @@ import React from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-const DocumentCard = ({ item }) => {
+const DocumentCard = ({ item, res }) => {
   const handleDeleteDocument = async (id) => {
     try {
       const response = await axios.delete(
         `https://cling-task-server.onrender.com/api/v1/document/document_delete/${id}`
       );
-      console.log(response);
+      console.log(response?.data);
+      toast.success(response?.data?.message);
+      res();
     } catch (error) {
       console.log(error);
+      toast.error("Error deleting Document");
     }
   };
 

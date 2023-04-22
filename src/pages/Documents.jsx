@@ -15,7 +15,7 @@ const Documents = () => {
 
   const res = async () => {
     const data = await axios.get(
-      `http://localhost:8000/api/v1/document/document_list/${user?.email}`
+      `https://cling-task-server.onrender.com/api/v1/document/document_list/${user?.email}`
     );
     console.log(data?.data);
     setData(data?.data?.data);

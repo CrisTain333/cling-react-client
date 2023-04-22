@@ -13,11 +13,15 @@ const AuthProvider = ({ children }) => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  const refresh = () => {
+    setShouldRefresh(!shouldRefresh);
+  };
+
   const logout = () => {
     setIsAuthenticate(false);
     setUser({});
     localStorage.removeItem("accessToken");
-    window.location.reload();
+    refresh();
   };
 
   useEffect(() => {
@@ -25,7 +29,7 @@ const AuthProvider = ({ children }) => {
     if (token) {
       getUserData(token);
     }
-  }, []);
+  }, [shouldRefresh]);
 
   const getUserData = async (token) => {
     try {
@@ -59,6 +63,7 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticate,
         logout,
         isError,
+        refresh,
       }}
     >
       {children}

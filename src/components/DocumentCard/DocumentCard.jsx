@@ -97,7 +97,7 @@ const DocumentCard = ({ item }) => {
             </button>
             <button
               class="font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-transparent "
-              onClick={() => handleDeleteDocument(item?.id)}
+              onClick={() => handleDeleteDocument(item?._id)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

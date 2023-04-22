@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AddDocumentModal from "../components/addDocumentModal/AddDocumentModal";
 import axios from "axios";
 import FileItem from "../components/FileItem/FileItem";
 import DocumentCard from "../components/DocumentCard/DocumentCard";
 import { Toaster } from "react-hot-toast";
+import { AuthContext } from "../Context/AuthProvider";
 
 const Documents = () => {
   const [showDocModal, setShowDocModal] = useState(false);
   const [data, setData] = useState([]);
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    const getUser = () => {
-      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
-        headers: {
-          "content-type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setUser(data?.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          setUser("");
-        });
-    };
-    getUser();
-  }, []);
+  const { user } = useContext(AuthContext);
 
   const res = async () => {
     const data = await axios.get(

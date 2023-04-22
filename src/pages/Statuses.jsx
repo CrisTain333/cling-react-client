@@ -1,41 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import AddStatusModal from "../components/addStatusModal/AddStatusModal";
 // import Table from "../components/UserTable/Table";
 import StatusList from "../components/StatusList/StatusList";
 import ReactLoading from "react-loading";
+import { AuthContext } from "../Context/AuthProvider";
 export default function Statuses() {
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [user, setUser] = useState("");
   const [sortState, setSortState] = useState("none");
   const [search, setSearch] = useState("");
 
-  // Fetching Statuses
-  useEffect(() => {
-    const getUser = () => {
-      fetch("https://cling-task-server.onrender.com/api/v1/user/me", {
-        headers: {
-          "content-type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          return res.json();
-        })
-        .then((data) => {
-          setUser(data?.data);
-        })
-        .catch((error) => {
-          console.log(error, "line 28 App.js");
-          setUser("");
-        });
-    };
-    getUser();
-  }, []);
+  const { user } = useContext(AuthContext);
 
   const {
     data = [],

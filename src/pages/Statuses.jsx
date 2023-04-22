@@ -42,7 +42,7 @@ export default function Statuses() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["Data", search],
+    queryKey: ["Data", search, user],
     queryFn: async () => {
       const res = await fetch(
         `http://localhost:8000/api/v1/status/status-list?search=${search}&email=${user?.email}`,

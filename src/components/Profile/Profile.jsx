@@ -115,37 +115,40 @@ const Profile = () => {
     //     </div>
     //   </div>
     // </div>
-    <div class="p-16">
-      <div class="p-8 bg-white shadow mt-24">
+    <div class=" p-16">
+      <div class="p-8 bg-white shadow mt-10">
         {" "}
-        <div class="grid grid-cols-1 md:grid-cols-3">
-          <div class="relative">
+        <div class="">
+          <div class="flex justify-around ">
             {" "}
-            <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-md absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+            <div class="w-32 bg-indigo-100 mx-auto rounded-full shadow-md -mt-24  flex items-center justify-center text-indigo-500">
               <img src={user?.profilePicture} alt="" />
-            </div>{" "}
-          </div>{" "}
-          <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
-            <button class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-              {" "}
-              Connect
-            </button>{" "}
-            <button class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-              {" "}
-              Message
-            </button>{" "}
-          </div>{" "}
+            </div>
+          </div>
         </div>{" "}
-        <div class="mt-20 text-center border-b pb-12">
+        <div class="mt-5 text-center border-b pb-12">
           {" "}
-          <h1 class="text-4xl font-medium text-gray-700">
-            Jessica Jones, <span class="font-light text-gray-500">27</span>
-          </h1>{" "}
-          <p class="font-light text-gray-600 mt-3">Bucharest, Romania</p>{" "}
-          <p class="mt-8 text-gray-500">
-            Solution Manager - Creative Tim Officer
-          </p>{" "}
-          <p class="mt-2 text-gray-500">University of Computer Science</p>{" "}
+          <h1 class="text-4xl font-medium text-gray-700">{user?.name}</h1>{" "}
+          <p class="font-light text-gray-600 mt-3">{user?.position}</p>{" "}
+          <div class="mt-8 text-gray-500"></div>
+          <div class="mt-12 flex flex-col justify-center">
+            <p class="text-gray-600 text-center font-light lg:px-16">
+              An artist of considerable range, Ryan — the name taken by
+              Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
+              and records all of his own music, giving it a warm, intimate feel
+              with a solid groove structure. An artist of considerable range.
+            </p>
+            <div className="Add_User_Button flex justify-center my-4">
+              <button
+                // onClick={() => setShowDocModal(true)}
+                htmlFor="my-modal"
+                className="bg-gradient-to-r from-sky-400  to-purple-500 text-white uppercase text-sm font-semibold px-4 py-2 rounded flex items-center cursor-pointer"
+                // value="Login"
+              >
+                Edit Profile
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

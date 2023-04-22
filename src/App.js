@@ -24,7 +24,6 @@ const App = () => {
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error, "line 28 App.js");
           setUser("");
           setIsAuthenticate(false);
           setLoading(false);

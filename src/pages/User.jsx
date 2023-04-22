@@ -4,6 +4,8 @@ import { Toaster } from "react-hot-toast";
 import AddUserModal from "../components/addUsermodal/AddUserModal";
 import Table from "../components/UserTable/Table";
 import ReactLoading from "react-loading";
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider";
 const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
   const [search, setSearch] = useState("");
@@ -12,6 +14,8 @@ const User = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   const {
     data = [],

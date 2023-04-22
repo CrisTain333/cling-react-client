@@ -23,7 +23,7 @@ export default function Statuses() {
     queryKey: ["Data", search, user],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:8000/api/v1/status/status-list?search=${search}&email=${user?.email}`,
+        `https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}&email=${user?.email}`,
         {
           headers: {
             "content-type": "application/json",

@@ -12,13 +12,14 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
     const email = form.email.value;
     const mobile = form.mobile.value;
     const password = form.password.value;
+    const position = form.position.value;
     try {
       fetch("https://cling-task-server.onrender.com/api/v1/user/add-user", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ name, email, mobile, password }),
+        body: JSON.stringify({ name, email, mobile, password, position }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -41,19 +42,19 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
 
   return (
     <div>
-      <div className="flex justify-end right-0 mt-5 mb-4 mr-12">
+      <div className="flex justify-end right-0 mt-5 mb-4 ">
         <input type="checkbox" id="my-modal" className="modal-toggle" />
         <div className="modal">
-          <div className="modal-box">
-            <div className="relative mb-10">
+          <div className="modal-box ">
+            <div className="relative mb-5">
               <div className=" modal-action absolute top-0 right-0 ">
                 <button
-                  className="btn btn-circle bg-red-500 border-none"
+                  className=" bg-white"
                   onClick={() => setShowUserModel(false)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 "
+                    className="h-6 w-6 text-black"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -74,8 +75,8 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
             </h2>
 
             <form className="w-full max-w-lg" onSubmit={handleAddUser}>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-1/2 px-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-email"
@@ -91,27 +92,40 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
                     placeholder="Enter Full Name"
                   />
                 </div>
+                <div className="w-1/2 flex flex-wrap -mx-3">
+                  <div className="w-full px-3">
+                    <label
+                      className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-email"
+                    >
+                      Email
+                    </label>
+                    <input
+                      className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="grid-email"
+                      type="email"
+                      name="email"
+                      placeholder="Enter Email"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-email"
-                  >
-                    Email
+
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-1/2 px-3">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                    Position
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-email"
-                    type="email"
-                    name="email"
-                    placeholder="Enter Email"
+                    type="text"
+                    name="position"
+                    placeholder="employ position"
                     required
                   />
                 </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
+                <div className="w-1/2 px-3">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-mobile"
@@ -148,7 +162,7 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
                 </div>
               </div>
 
-              <div className="mt-3 text-center">
+              <div className="text-center">
                 <button
                   disabled={isLoading}
                   type="submit"

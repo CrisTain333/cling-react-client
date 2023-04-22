@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../Context/AuthProvider";
 
-export default function AddDocumentModal({ setShowDocModal, user }) {
+export default function AddDocumentModal({ setShowDocModal, res }) {
+  const { user } = useContext(AuthContext);
   const [selectedImage, setSelectedImage] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +37,7 @@ export default function AddDocumentModal({ setShowDocModal, user }) {
       );
       toast.success(response?.data?.message);
       setLoading(false);
+      res();
       setShowDocModal(false);
     } catch (error) {
       console.log(error);

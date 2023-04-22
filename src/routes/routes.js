@@ -5,34 +5,59 @@ import Statuses from "../pages/Statuses";
 import Documents from "../pages/Documents";
 import UserStatusPage from "../pages/UserStatusPage";
 import Profile from "../components/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
 
-const { createBrowserRouter, Routes,  } = require("react-router-dom");
+const { createBrowserRouter, Routes } = require("react-router-dom");
 
 export const router = createBrowserRouter([
   {
     path: "/",
 
-    element: <Layout />,
+    element: (
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/",
-        element: <User />,
+        element: (
+          <PrivateRoute>
+            <User />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/status",
-        element: <Statuses />,
+        element: (
+          <PrivateRoute>
+            <Statuses />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/documents",
-        element: <Documents />,
+        element: (
+          <PrivateRoute>
+            <Documents />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/users/:id/status",
-        element: <UserStatusPage />,
+        element: (
+          <PrivateRoute>
+            <UserStatusPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -41,7 +66,6 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
 ]);
-
 
 export default function App() {
   return <Routes>{router}</Routes>;

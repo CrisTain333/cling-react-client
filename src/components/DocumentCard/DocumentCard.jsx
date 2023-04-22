@@ -18,7 +18,7 @@ const DocumentCard = ({ item }) => {
       link.click();
       toast.success("file downloaded");
     } catch (error) {
-      toast.error("Error downloading file .....");
+      toast.error("Error downloading file ....");
       console.error("Error downloading file: ", error);
     }
   };

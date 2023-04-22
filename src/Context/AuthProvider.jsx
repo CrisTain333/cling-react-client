@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
     setIsAuthenticate(false);
     setUser({});
     localStorage.removeItem("accessToken");
-    // window.location.reload();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -58,6 +58,7 @@ const AuthProvider = ({ children }) => {
         isAuthenticate,
         setIsAuthenticate,
         logout,
+        isError,
       }}
     >
       {children}

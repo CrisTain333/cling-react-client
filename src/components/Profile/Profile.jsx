@@ -18,7 +18,9 @@ const Profile = () => {
         </div>{" "}
         <div class="mt-5 text-center  pb-5">
           {" "}
-          <h1 class="text-4xl font-medium text-gray-700">{user?.name}</h1>{" "}
+          <h1 class="text-3xl font-mono font-semibold  text-gray-700">
+            {user?.name}
+          </h1>{" "}
           <p class="font-light text-gray-600 mt-3">{user?.position}</p>{" "}
           <div class="mt-8 text-gray-500"></div>
           <div class="mt-4 flex flex-col justify-center">

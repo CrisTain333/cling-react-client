@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -28,14 +29,11 @@ const Profile = () => {
               with a solid groove structure. An artist of considerable range.
             </p>
             <div className="Add_User_Button flex justify-center my-4">
-              <button
-                // onClick={() => setShowDocModal(true)}
-                htmlFor="my-modal"
-                className="bg-gradient-to-r from-sky-400  to-purple-500 text-white uppercase text-sm font-semibold px-4 py-2 rounded flex items-center cursor-pointer"
-                // value="Login"
-              >
-                Edit Profile
-              </button>
+              <Link to="/profile/edit">
+                <button className="bg-gradient-to-r from-sky-400  to-purple-500 text-white uppercase text-sm font-semibold px-4 py-2 rounded flex items-center cursor-pointer">
+                  Edit Profile
+                </button>
+              </Link>
             </div>
           </div>
         </div>

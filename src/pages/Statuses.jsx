@@ -6,6 +6,7 @@ import AddStatusModal from "../components/addStatusModal/AddStatusModal";
 import StatusList from "../components/StatusList/StatusList";
 import ReactLoading from "react-loading";
 import { AuthContext } from "../Context/AuthProvider";
+import { BACKEND_BASE_URL } from "../config/const";
 export default function Statuses() {
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [error, setError] = useState(false);
@@ -23,7 +24,7 @@ export default function Statuses() {
     queryKey: ["Data", search, user],
     queryFn: async () => {
       const res = await fetch(
-        `https://cling-task-server.onrender.com/api/v1/status/status-list?search=${search}&email=${user?.email}`,
+        `${BACKEND_BASE_URL}/api/v1/status/status-list?search=${search}&email=${user?.email}`,
         {
           headers: {
             "content-type": "application/json",

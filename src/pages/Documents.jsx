@@ -5,6 +5,7 @@ import FileItem from "../components/FileItem/FileItem";
 import DocumentCard from "../components/DocumentCard/DocumentCard";
 import { Toaster } from "react-hot-toast";
 import { AuthContext } from "../Context/AuthProvider";
+import { BACKEND_BASE_URL } from "../config/const";
 
 const Documents = () => {
   const [showDocModal, setShowDocModal] = useState(false);
@@ -15,7 +16,7 @@ const Documents = () => {
 
   const res = async () => {
     const data = await axios.get(
-      `https://cling-task-server.onrender.com/api/v1/document/document_list/${user?.email}`
+      `${BACKEND_BASE_URL}/api/v1/document/document_list/${user?.email}`
     );
     console.log(data?.data);
     setData(data?.data?.data);

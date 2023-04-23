@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../Context/AuthProvider";
+import { BACKEND_BASE_URL } from "../../config/const";
 
 export default function AddDocumentModal({ setShowDocModal, res }) {
   const { user } = useContext(AuthContext);
@@ -27,7 +28,7 @@ export default function AddDocumentModal({ setShowDocModal, res }) {
 
     try {
       const response = await axios.post(
-        "https://cling-task-server.onrender.com/api/v1/document/document_upload",
+        `${BACKEND_BASE_URL}/api/v1/document/document_upload`,
         formData,
         {
           headers: {

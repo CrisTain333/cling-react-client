@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { BACKEND_BASE_URL } from "../config/const";
 
 function UserStatusPage() {
   const [userStatus, setUserStatus] = useState(null);
 
   useEffect(() => {
     const getUserStatus = () => {
-      fetch("https://cling-task-server.onrender.com/api/v1/document/document_find/(email)", {
+      fetch(`${BACKEND_BASE_URL}/api/v1/document/document_find/(email)`, {
         headers: {
           "content-type": "application/json",
           Authorization: localStorage.getItem("accessToken"),
@@ -28,16 +29,9 @@ function UserStatusPage() {
 
   return (
     <div>
-      {userStatus ? (
-        <p>{userStatus.email} </p>
-
-      ) : (
-        <p>Loading status...</p>
-      )}
+      {userStatus ? <p>{userStatus.email} </p> : <p>Loading status...</p>}
     </div>
   );
 }
-
-
 
 export default UserStatusPage;

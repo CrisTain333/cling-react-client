@@ -6,6 +6,7 @@ import Table from "../components/UserTable/Table";
 import ReactLoading from "react-loading";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
+import { BACKEND_BASE_URL } from "../config/const";
 const User = () => {
   const [showAddUserModel, setShowUserModel] = useState(false);
   const [search, setSearch] = useState("");
@@ -25,7 +26,7 @@ const User = () => {
     ["users", search, currentPage, sort],
     async () => {
       const res = await fetch(
-        `https://cling-task-server.onrender.com/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`,
+        `${BACKEND_BASE_URL}/api/v1/user/user-listing?sort=${sort}&search=${search}&page=${currentPage}`,
         {
           headers: {
             "content-type": "application/json",

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { BACKEND_BASE_URL } from "../../config/const";
 
 const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +13,7 @@ const UpdateUserModal = ({ setShowUpdateUserModel, index, data, refetch }) => {
     const email = form.email.value;
     const mobile = form.mobile.value;
     try {
-      fetch("https://cling-task-server.onrender.com/api/v1/user/update-user", {
+      fetch(`${BACKEND_BASE_URL}/api/v1/user/update-user`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

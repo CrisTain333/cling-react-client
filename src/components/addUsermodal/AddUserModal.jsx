@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { BACKEND_BASE_URL } from "../../config/const";
 
 const AddUserModal = ({ setShowUserModel, refetch }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +15,7 @@ const AddUserModal = ({ setShowUserModel, refetch }) => {
     const password = form.password.value;
     const position = form.position.value;
     try {
-      fetch("https://cling-task-server.onrender.com/api/v1/user/add-user", {
+      fetch( `${BACKEND_BASE_URL}/api/v1/user/add-user`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

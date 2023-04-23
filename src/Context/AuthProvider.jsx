@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createContext, useState } from "react";
+import { BACKEND_BASE_URL } from "../config/const";
 
 export const AuthContext = createContext();
 
@@ -33,15 +34,12 @@ const AuthProvider = ({ children }) => {
 
   const getUserData = async (token) => {
     try {
-      const res = await fetch(
-        "https://cling-task-server.onrender.com/api/v1/user/me",
-        {
-          headers: {
-            "content-type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const res = await fetch(`${BACKEND_BASE_URL}/api/v1/user/me`, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: token,
+        },
+      });
       const userInfo = await res.json();
       setUser(userInfo?.data);
     } catch (error) {

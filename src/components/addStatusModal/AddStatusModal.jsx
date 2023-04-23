@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../Context/AuthProvider";
+import { BACKEND_BASE_URL } from "../../config/const";
 
 const AddStatusModal = ({ setShowStatusModal, refetch }) => {
   const { user } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
 
     // Making POST request
     try {
-      fetch("https://cling-task-server.onrender.com/api/v1/status/add-status", {
+      fetch(`${BACKEND_BASE_URL}/api/v1/status/add-status`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -44,8 +45,6 @@ const AddStatusModal = ({ setShowStatusModal, refetch }) => {
       toast.error("Error Adding User");
     }
   };
-
-  // https://cling-task-server.onrender.com/api/v1/status/add-status ||POST
 
   return (
     <div>

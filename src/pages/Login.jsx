@@ -48,7 +48,6 @@ export default function Login() {
     }
   };
 
-  if (isAuthenticate) return <Navigate to={"/"} />;
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <Toaster />

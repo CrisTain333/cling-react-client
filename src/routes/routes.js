@@ -66,7 +66,3 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
 ]);
-
-export default function App() {
-  return <Routes>{router}</Routes>;
-}

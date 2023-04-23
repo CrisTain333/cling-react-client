@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 import { BACKEND_BASE_URL } from "../config/const";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-  const { isAuthenticate, setIsAuthenticate, refresh } =
-    useContext(AuthContext);
+  const { setIsAuthenticate, refresh } = useContext(AuthContext);
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -29,7 +28,7 @@ export default function Login() {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
-            toast.success(data?.message);
+            toast.success("login success");
             localStorage.setItem("accessToken", data?.token);
             refresh();
             setLoading(false);

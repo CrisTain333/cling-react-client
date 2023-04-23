@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const refresh = () => {
     setShouldRefresh(!shouldRefresh);
@@ -42,6 +43,7 @@ const AuthProvider = ({ children }) => {
       });
       const userInfo = await res.json();
       setUser(userInfo?.data);
+      setIsAdmin(userInfo?.data?.role === "admin");
     } catch (error) {
       setIsError(true);
       setUser(null);
@@ -62,6 +64,7 @@ const AuthProvider = ({ children }) => {
         logout,
         isError,
         refresh,
+        isAdmin,
       }}
     >
       {children}

@@ -15,8 +15,9 @@ const User = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { user, isAuthenticate, isAdmin } = useContext(AuthContext);
+  console.log(user, isAuthenticate);
+  console.log(isAdmin);
 
   const {
     data = [],

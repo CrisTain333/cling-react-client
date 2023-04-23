@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setIsAuthenticate(false);
-    setUser({});
+    setUser(null);
     localStorage.removeItem("accessToken");
     refresh();
   };

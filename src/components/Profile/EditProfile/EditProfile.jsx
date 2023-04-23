@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import { BACKEND_BASE_URL } from "../../../config/const";
 import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 const EditProfile = () => {
   const [selectedImage, setSelectedImage] = useState();
@@ -37,27 +38,28 @@ const EditProfile = () => {
     formData.append("bio", bio);
     formData.append("mobile", user?.mobile);
 
-    console.log(name, email, position, bio, file);
-
-    const res = await axios.put(
-      `${BACKEND_BASE_URL}/api/v1/user/update-profile`,
-      formData
-    );
-    // const data = await res.json();
-
-    // fetch(`${BACKEND_BASE_URL}/api/v1/user/update-profile`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(),
-    // });
-
-    console.log(res);
+    try {
+      const res = await axios.put(
+        `${BACKEND_BASE_URL}/api/v1/user/update-profile`,
+        formData
+      );
+      console.log(res.data.status);
+      if (res.data.status === 200) {
+        toast.success("Profile Update Successful");
+        refresh();
+        setSelectedImage("");
+      } else {
+        toast.error("error Updating profile");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong");
+    }
   };
 
   return (
     <div className="w-[80%] mx-auto my-10">
+      <Toaster />
       <div className="p-2 border rounded-md shadow-md">
         <h3 className="text-2xl font-medium text-center mb-1">User</h3>
         <hr className="w-[20%] mx-auto" />
@@ -163,7 +165,7 @@ const EditProfile = () => {
                 </label>
                 <div className="my-2 p-2">
                   <input
-                    value={user?.position || ""}
+                    defaultValue={user?.position || ""}
                     //   onChange={(e) =>
                     //     setUserProfile((prev: any) => {
                     //       return { ...prev, lastName: e.target.value };
@@ -201,7 +203,7 @@ const EditProfile = () => {
             </label>
             <div className="my-2 p-2">
               <textarea
-                value={user?.bio}
+                defaultValue={user?.bio}
                 //   onChange={(e) =>
                 //     setUserProfile((prev: any) => {
                 //       return { ...prev, bio: e.target.value };

@@ -16,17 +16,14 @@ const Profile = () => {
             </div>
           </div>
         </div>{" "}
-        <div class="mt-5 text-center border-b pb-12">
+        <div class="mt-5 text-center  pb-5">
           {" "}
           <h1 class="text-4xl font-medium text-gray-700">{user?.name}</h1>{" "}
           <p class="font-light text-gray-600 mt-3">{user?.position}</p>{" "}
           <div class="mt-8 text-gray-500"></div>
-          <div class="mt-12 flex flex-col justify-center">
-            <p class="text-gray-600 text-center font-light lg:px-16">
-              An artist of considerable range, Ryan — the name taken by
-              Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-              and records all of his own music, giving it a warm, intimate feel
-              with a solid groove structure. An artist of considerable range.
+          <div class="mt-4 flex flex-col justify-center">
+            <p class="text-gray-600 text-center font-light text-lg font-mono lg:px-16">
+              {user?.bio}
             </p>
             <div className="Add_User_Button flex justify-center my-4">
               <Link to="/profile/edit">

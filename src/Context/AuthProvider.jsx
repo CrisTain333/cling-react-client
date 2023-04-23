@@ -9,7 +9,6 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticate, setIsAuthenticate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [user, setUser] = useState(null);
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -65,6 +64,7 @@ const AuthProvider = ({ children }) => {
         isError,
         refresh,
         isAdmin,
+        getUserData,
       }}
     >
       {children}

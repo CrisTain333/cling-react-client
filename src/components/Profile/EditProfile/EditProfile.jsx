@@ -3,11 +3,15 @@ import { AuthContext } from "../../../Context/AuthProvider";
 import { BACKEND_BASE_URL } from "../../../config/const";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const EditProfile = () => {
+  const tokenStoragePath = "accessToken";
   const [selectedImage, setSelectedImage] = useState();
-  const { user, refresh } = useContext(AuthContext);
+  const { user, getUserData } = useContext(AuthContext);
   const [updateLoader, setUpdateLoader] = useState(false);
+
+  const token = localStorage.getItem(tokenStoragePath);
 
   // / Handle Select Image
   const imageChange = (e) => {
@@ -46,9 +50,10 @@ const EditProfile = () => {
       console.log(res.data.status);
       if (res.data.status === 200) {
         toast.success("Profile Update Successful");
-        refresh();
+        getUserData(token);
         setSelectedImage("");
       } else {
+        setSelectedImage("");
         toast.error("error Updating profile");
       }
     } catch (error) {
@@ -61,6 +66,22 @@ const EditProfile = () => {
     <div className="w-[80%] mx-auto my-10">
       <Toaster />
       <div className="p-2 border rounded-md shadow-md">
+        <div className="ml-5 my-5">
+          <Link to="/profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-4.28 9.22a.75.75 0 000 1.06l3 3a.75.75 0 101.06-1.06l-1.72-1.72h5.69a.75.75 0 000-1.5h-5.69l1.72-1.72a.75.75 0 00-1.06-1.06l-3 3z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </Link>
+        </div>
         <h3 className="text-2xl font-medium text-center mb-1">User</h3>
         <hr className="w-[20%] mx-auto" />
 

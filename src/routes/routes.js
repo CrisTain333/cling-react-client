@@ -6,6 +6,7 @@ import Documents from "../pages/Documents";
 import UserStatusPage from "../pages/UserStatusPage";
 import Profile from "../components/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const { createBrowserRouter, Routes } = require("react-router-dom");
 
@@ -22,9 +23,11 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <PrivateRoute>
-            <User />
-          </PrivateRoute>
+          <AdminRoute>
+            <PrivateRoute>
+              <User />
+            </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {

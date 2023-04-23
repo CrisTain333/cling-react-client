@@ -2,16 +2,16 @@ import { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
 
-const PrivateRoute = ({ children }) => {
-  const { isError } = useContext(AuthContext);
+const AdminRoute = ({ children }) => {
+  const { isAdmin } = useContext(AuthContext);
   const location = useLocation();
   const token = localStorage.getItem("accessToken");
 
-  if (!token || isError) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  if (token && isAdmin) {
+    return children;
   }
 
-  return children;
+  return <Navigate to="/profile" state={{ from: location }} replace></Navigate>;
 };
 
-export default PrivateRoute;
+export default AdminRoute;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { BACKEND_BASE_URL } from "../../config/const";
 
 const StatusList = ({ e, refetch }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -14,7 +15,7 @@ const StatusList = ({ e, refetch }) => {
   const handleUpdate = async (id) => {
     try {
       const response = await fetch(
-        `https://cling-task-server.onrender.com/api/v1/status/update-status/${id}`,
+        `${BACKEND_BASE_URL}/api/v1/status/update-status/${id}`,
         {
           method: "PUT",
           headers: {
@@ -40,7 +41,7 @@ const StatusList = ({ e, refetch }) => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://cling-task-server.onrender.com/api/v1/status/delete-status/${id}`,
+        `${BACKEND_BASE_URL}/api/v1/status/delete-status/${id}`,
         {
           method: "DELETE",
         }

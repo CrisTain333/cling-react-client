@@ -6,6 +6,8 @@ import Documents from "../pages/Documents";
 import UserStatusPage from "../pages/UserStatusPage";
 import Profile from "../components/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import EditProfile from "../components/Profile/EditProfile/EditProfile";
 
 const { createBrowserRouter, Routes } = require("react-router-dom");
 
@@ -22,9 +24,11 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <PrivateRoute>
-            <User />
-          </PrivateRoute>
+          <AdminRoute>
+            <PrivateRoute>
+              <User />
+            </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
@@ -59,6 +63,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/profile/edit",
+        element: (
+          <PrivateRoute>
+            <EditProfile />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -66,7 +78,3 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
 ]);
-
-export default function App() {
-  return <Routes>{router}</Routes>;
-}

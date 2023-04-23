@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import swal from "sweetalert";
 import UpdateUserModal from "../UpdateUserModal/UpdateUserModal";
 import { Link } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../../config/const";
 
 const Table = ({ data, refetch }) => {
   // function for updating the user details
@@ -18,12 +19,9 @@ const Table = ({ data, refetch }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(
-          `https://cling-task-server.onrender.com/api/v1/user/delete-user/${id}`,
-          {
-            method: "DELETE",
-          }
-        )
+        fetch(`${BACKEND_BASE_URL}/api/v1/user/delete-user/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((data) => {
             swal("user has been deleted!", {
@@ -58,7 +56,7 @@ const Table = ({ data, refetch }) => {
                   <td>{e.name}</td>
                   <td>{e.email}</td>
                   <td>{e.mobile}</td>
-                  <td className="flex justify-center">  
+                  <td className="flex justify-center">
                     <label
                       onClick={() => {
                         setShowUpdateUserModal(true);
@@ -78,13 +76,13 @@ const Table = ({ data, refetch }) => {
                     </button>
 
                     <Link
-                       to={`/users/${e._id}/status`}
-                         className="btn bg-green-500 text-sm text-white border-none h-10 font-mono px-5 m-1 w-20 rounded-md"
+                      to={`/users/${e._id}/status`}
+                      className="btn bg-green-500 text-sm text-white border-none h-10 font-mono px-5 m-1 w-20 rounded-md"
                     >
-  Status
-</Link>
+                      Status
+                    </Link>
 
-                    <button 
+                    <button
                       className="btn bg-gray-500 text-sm text-white border-none w-30 h-10  m-1 font-mono w-20 rounded-md"
                       onClick={() => {
                         //navigate to documnets
@@ -93,7 +91,6 @@ const Table = ({ data, refetch }) => {
                       Document
                     </button>
                   </td>
-                 
                 </tr>
               );
             })}

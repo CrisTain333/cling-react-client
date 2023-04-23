@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createContext, useState } from "react";
+import { BACKEND_BASE_URL } from "../config/const";
 
 export const AuthContext = createContext();
 
@@ -8,10 +9,10 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticate, setIsAuthenticate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [user, setUser] = useState(null);
   const [shouldRefresh, setShouldRefresh] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const refresh = () => {
     setShouldRefresh(!shouldRefresh);
@@ -19,7 +20,7 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setIsAuthenticate(false);
-    setUser({});
+    setUser(null);
     localStorage.removeItem("accessToken");
     refresh();
   };
@@ -33,17 +34,15 @@ const AuthProvider = ({ children }) => {
 
   const getUserData = async (token) => {
     try {
-      const res = await fetch(
-        "https://cling-task-server.onrender.com/api/v1/user/me",
-        {
-          headers: {
-            "content-type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const res = await fetch(`${BACKEND_BASE_URL}/api/v1/user/me`, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: token,
+        },
+      });
       const userInfo = await res.json();
       setUser(userInfo?.data);
+      setIsAdmin(userInfo?.data?.role === "admin");
     } catch (error) {
       setIsError(true);
       setUser(null);
@@ -64,6 +63,8 @@ const AuthProvider = ({ children }) => {
         logout,
         isError,
         refresh,
+        isAdmin,
+        getUserData,
       }}
     >
       {children}

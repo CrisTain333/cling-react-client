@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 
 export default function Navbar() {
-  const { isAuthenticate, logout } = useContext(AuthContext);
+  const { isAuthenticate, logout, user } = useContext(AuthContext);
 
   return (
     <div>
@@ -38,7 +38,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="navbar-end">
-          {isAuthenticate ? (
+          {user ? (
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  flex items-center cursor-pointer"
               onClick={logout}
